@@ -8,5 +8,5 @@ test-results/
 !.env.example
 *.log
 
-.vercel
-.env*
+# Supplied high-resolution reference library; ship only selected game assets.
+images/

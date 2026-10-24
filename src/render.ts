@@ -21,8 +21,10 @@ export class Renderer {
   private particles:Particle[] = [];
   private time = 0; private wonAt = 0; private previousMode:ViewMode = 'title';
   private reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  private equipment = new Image();
   constructor(private canvas:HTMLCanvasElement){
     const context=canvas.getContext('2d');if(!context)throw new Error('浏览器不支持 Canvas 2D');this.c=context;
+    this.equipment.src = new URL('./assets/khb-air.png', import.meta.url).href;
     new ResizeObserver(()=>this.resize()).observe(canvas);this.resize();
   }
   resize(){const b=this.canvas.getBoundingClientRect();this.width=b.width;this.height=b.height;this.dpr=Math.min(devicePixelRatio||1,2);this.canvas.width=Math.round(b.width*this.dpr);this.canvas.height=Math.round(b.height*this.dpr);}
@@ -175,11 +177,23 @@ export class Renderer {
     const kick=s.spraying?Math.sin(this.time*19)*5:0;
     // Boots / overalls / pressure tank / helmet.
     line(c,-7,7,-10-kick,18,INK,9);line(c,7,7,12+kick,18,INK,9);rounded(c,-18-kick,15,13,8,3,'#37515b',INK,2);rounded(c,7+kick,15,14,8,3,'#37515b',INK,2);
-    rounded(c,-19,-19,16,28,6,YELLOW,INK,2);rounded(c,-17,-13,6,17,2,'#fff28a');rounded(c,-10,-14,25,28,7,'#50797b',INK,2);line(c,-2,-13,-2,7,YELLOW,4);rounded(c,-1,-5,14,9,2,YELLOW,INK,1);
+    // The cyan game water pack stays visually separate from the real product.
+    rounded(c,-19,-19,16,28,6,'#a5dce4',INK,2);rounded(c,-17,-13,5,17,2,'#e8ffff');rounded(c,-10,-14,25,28,7,'#50797b',INK,2);line(c,-2,-13,-2,7,YELLOW,4);rounded(c,-1,-5,14,9,2,YELLOW,INK,1);
     ellipse(c,5,-22,15,15,'#f0bd91',INK);rounded(c,2,-28,16,11,4,'#d9f1e8',INK,1.6);line(c,9,-26,7,-20,'#fff',2);
     c.beginPath();c.ellipse(4,-29,18,14,0,Math.PI,0);c.lineTo(22,-25);c.lineTo(-14,-25);c.closePath();c.fillStyle=YELLOW;c.fill();c.strokeStyle=INK;c.lineWidth=2;c.stroke();rounded(c,-17,-27,42,6,3,YELLOW,INK,2);line(c,3,-41,3,-30,'#c4a600',3);
     c.restore();
-    const a=Math.atan2(s.aim.y,s.aim.x);c.save();c.translate(p.x,p.y);c.rotate(a);line(c,0,1,15,1,'#edbc8f',8);rounded(c,10,-7,24,14,3,YELLOW,INK,2);rounded(c,30,-4,18,8,2,'#3d5157',INK,2);rounded(c,13,5,7,12,2,INK);c.restore();
+    const a=Math.atan2(s.aim.y,s.aim.x);c.save();c.translate(p.x,p.y);c.rotate(a);
+    line(c,0,4,-2,14,'#edbc8f',8);
+    if(this.equipment.complete&&this.equipment.naturalWidth){
+      // Crop transparent padding; the nozzle tip remains at +48 world pixels.
+      c.drawImage(this.equipment,120,180,1260,810,-15.8,-7.2,65,41.8);
+    }else{
+      // Reference-shaped fallback while the local sprite decodes.
+      rounded(c,-24,-9,49,15,6,'#22272a',INK,1);rounded(c,28,-7,20,12,4,'#25292b',INK,1);
+      path(c,[[-13,4],[-1,4],[-11,39],[-21,36]],YELLOW,INK,1);
+      rounded(c,-15,-6,15,6,1,'#fff');line(c,-13,-1,-2,-1,YELLOW,1);
+    }
+    ellipse(c,-2,14,4,5,'#edbc8f',INK);c.restore();
     if(mode==='title'){c.save();c.translate(p.x+55,p.y-80);c.rotate(-.07);rounded(c,-10,-25,137,40,8,'#fffdf3',INK,2);path(c,[[10,14],[3,27],[24,14]],'#fffdf3',INK,2);text(c,'我先飞一个？',58,0,14,INK,800,'center');c.restore();}
   }
   private effects(c:CanvasRenderingContext2D,s:GameState,mode:ViewMode,dt:number){

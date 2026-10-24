@@ -9,3 +9,18 @@
 
 /* Keep compact icons inside accessible touch targets. */
 .round-button{min-width:44px;min-height:44px}.close-dialog{width:44px;height:44px}.in-game-hint button{width:44px;min-width:44px;height:44px}.in-game-hint{align-items:center}@media(max-width:540px){.topbar{gap:10px}.brand-line{display:none}.team-name{font-size:11px;max-width:66px}.top-actions{gap:5px}.round-button{width:44px;height:44px}.round-button svg{width:17px;height:17px}.in-game-hint button{width:44px;height:44px;align-self:center}.in-game-hint div>span{max-width:210px}}
+
+/* Product identity comes from the supplied KHB AIR reference photographs. */
+.equipment-card{position:absolute;right:5vw;top:30px;width:280px;padding:19px 20px 14px;background:#fffdf3f5;border:2px solid var(--ink);box-shadow:6px 7px 0 #203c4b24;transform:rotate(3deg)}
+.equipment-card:before{content:"";position:absolute;left:calc(50% - 28px);top:-9px;width:56px;height:16px;background:#ffda00c9;transform:rotate(-6deg)}
+.equipment-eyebrow{font:8px var(--mono);letter-spacing:1px;display:block}
+.equipment-card img{display:block;width:100%;height:181px;object-fit:contain;margin:5px 0 3px;filter:drop-shadow(3px 5px 2px #203c4b18)}
+.equipment-copy strong{font:900 27px/1 Arial,sans-serif;letter-spacing:-1px;display:block;color:#171b1c}
+.equipment-copy>span{display:block;margin-top:6px;font-size:12px;font-weight:750}
+.equipment-copy small{display:block;font-size:10px;color:var(--muted);margin-top:8px;text-wrap:balance}
+.equipment-foot{display:block;border-top:1px solid var(--line);font-size:8px;letter-spacing:1px;margin-top:14px;padding-top:10px}
+@media(min-width:1550px){.equipment-card{right:9vw}}
+@media(max-width:1050px){.equipment-card{right:3vw;width:235px;padding:16px}.equipment-card img{height:150px}.equipment-copy strong{font-size:24px}}
+@media(max-width:800px){.equipment-card{top:auto;bottom:23px;left:6vw;right:auto;width:270px;height:148px;padding:15px;transform:rotate(-2deg)}.equipment-card img{position:absolute;right:1px;top:19px;width:155px;height:116px;margin:0}.equipment-eyebrow{font-size:7px;letter-spacing:.3px}.equipment-copy{position:relative;margin-top:22px;width:115px}.equipment-copy strong{font-size:22px}.equipment-copy>span{font-size:9px;margin-top:5px}.equipment-copy small{font-size:8px;max-width:92px;line-height:1.6}.equipment-foot{display:none}.title-bottom{display:none}}
+@media(max-width:540px){.equipment-card{left:23px;bottom:29px;width:250px;height:147px}.equipment-card img{width:143px;right:0;top:24px}.equipment-copy strong{font-size:21px}}
+@media(max-height:760px) and (max-width:800px){.equipment-card{height:102px;bottom:14px;padding:12px}.equipment-card img{width:132px;height:99px;top:0;right:4px}.equipment-copy{margin-top:10px}.equipment-copy small{display:none}.title-copy{top:22px}.title-copy h1{margin:17px 0;font-size:43px}.tagline{margin:17px 0 10px;font-size:16px}.intro-copy{margin-bottom:17px}.start-meta{margin-top:13px}.best-label{margin-top:9px}}
