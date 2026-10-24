@@ -23,9 +23,9 @@ export class GameAudio {
     return this.enabled;
   }
   spray(active: boolean) { if (this.ctx && this.water) this.water.gain.setTargetAtTime(active && this.enabled ? .38 : 0, this.ctx.currentTime, .07); }
-  chime(kind: 'win' | 'resident' | 'rescue' | 'checkpoint' | 'mud') {
+  chime(kind: 'win' | 'resident' | 'rescue' | 'checkpoint' | 'mud' | 'achievement') {
     if (!this.enabled || !this.ctx) return;
-    const frequencies = kind === 'win' ? [523,659,784,1047] : kind === 'rescue' ? [310,220] : [660,880];
+    const frequencies = kind === 'win' ? [523,659,784,1047] : kind === 'achievement' ? [659,784,988,1319] : kind === 'rescue' ? [310,220] : [660,880];
     frequencies.forEach((frequency, i) => {
       const oscillator = this.ctx!.createOscillator(), volume = this.ctx!.createGain(), start = this.ctx!.currentTime + i * .12;
       oscillator.type = 'sine'; oscillator.frequency.value = frequency;

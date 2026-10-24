@@ -1,6 +1,6 @@
 import type { GameState, Resident } from './core.ts';
 import { getHeightMeters, getResidentCount, scoreStars } from './core.ts';
-import { BUILDING, platforms, obstacles, WORLD_HEIGHT } from './level.ts';
+import { BUILDING, platforms, obstacles, WORLD_HEIGHT, secretWindow } from './level.ts';
 
 type ViewMode = 'title' | 'playing' | 'paused' | 'victory';
 type Particle = { x:number; y:number; vx:number; vy:number; life:number; max:number; r:number };
@@ -100,20 +100,34 @@ export class Renderer {
     this.mural(c);
     for(let y=330;y<2700;y+=210){
       if(y+140<top||y>bottom)continue;
-      for(let col=0;col<3;col++)this.window(c,235+col*155,y,98,115,Math.floor(y/210)+col);
+      for(let col=0;col<3;col++){if(235+col*155===secretWindow.x&&y===secretWindow.y)continue;this.window(c,235+col*155,y,98,115,Math.floor(y/210)+col);}
     }
+    if(secretWindow.y+secretWindow.h>=top&&secretWindow.y<=bottom)this.duckWindow(c,state.secret.unlocked);
     // Special residents get their own recognizable frame.
     state.residents.forEach(r=>{if(r.y+r.h<top||r.y>bottom)return;this.window(c,r.x,r.y,r.w,r.h,1);this.resident(c,r,reveal);});
     // Actual dirt cells: reveal is a purely visual end-card transition and never updates state.
     state.dirt.forEach((cell,i)=>{
       if(cell.amount<.01||cell.y+cell.h<top||cell.y>bottom)return;
-      const amount=cell.amount*(1-reveal);if(amount<.01)return;
+      const cx=cell.x+cell.w/2,cy=cell.y+cell.h/2;
+      const lockedSecret=!state.secret.unlocked&&cx>=secretWindow.x&&cx<=secretWindow.x+secretWindow.w&&cy>=secretWindow.y&&cy<=secretWindow.y+secretWindow.h;
+      const amount=cell.amount*(lockedSecret?1:1-reveal);if(amount<.01)return;
       c.globalAlpha=amount*.78;c.fillStyle='#7c8d79';c.fillRect(cell.x,cell.y,cell.w+.35,cell.h+.35);
       if(hash(i)> .67){c.globalAlpha=amount*.22;ellipse(c,cell.x+cell.w*.5,cell.y+cell.h*.5,cell.w*.37,cell.h*.18,'#415c4a');}
       if(hash(i+218)>.83){c.globalAlpha=amount*.25;line(c,cell.x+8,cell.y+5,cell.x+7,cell.y+cell.h,'#c3b280',3);}
     });c.globalAlpha=1;
     // Exposed residents appear in front of the cleaned window interior.
     state.residents.filter(r=>r.unlocked).forEach(r=>{if(r.y+r.h>=top&&r.y<=bottom)this.resident(c,r,1);});
+    if(secretWindow.y+secretWindow.h>=top&&secretWindow.y<=bottom){
+      if(state.secret.unlocked)this.duckWindow(c,true);
+      else{
+        const w=secretWindow;rounded(c,w.x+10,w.y+9,w.w-20,18,3,'#e8dec5',INK,1);
+        text(c,'请勿打扰',w.x+w.w/2,w.y+22,10,INK,700,'center');
+        if(state.elapsed>0&&Math.hypot(state.player.x-w.x-w.w/2,state.player.y-w.y-w.h/2)<300){
+          rounded(c,w.x+8,w.y+w.h-14,w.w-16,8,3,'#fffdf3',INK,1);
+          rounded(c,w.x+9,w.y+w.h-13,(w.w-18)*Math.min(1,state.secret.cleanPct/secretWindow.threshold),6,2,YELLOW);
+        }
+      }
+    }
     c.restore();
     // Yellow drainpipe and little brackets establish the upward route.
     line(c,b.x-17,b.y+40,b.x-17,b.y+b.h-20,'#3c5956',14);line(c,b.x-17,b.y+40,b.x-17,b.y+b.h-20,'#d7bd61',9);
@@ -146,6 +160,23 @@ export class Renderer {
     for(let i=0;i<14;i++)star(c,230+hash(i+75)*420,300+i*175,12+hash(i+25)*12,i%2?'#71a6a0':'#df9e6a');
     c.save();c.translate(460,625);c.rotate(.22);path(c,[[-50,95],[-78,151],[-20,130],[0,170],[24,129],[82,151],[48,92]],'#e08a65',INK,3);path(c,[[0,-145],[-62,-37],[-57,99],[57,99],[62,-37]],YELLOW,INK,4);ellipse(c,0,-26,33,36,'#96c8cd',INK);ellipse(c,-8,-35,12,13,'#d7f0ec');path(c,[[-57,52],[-100,104],[-102,155],[-52,112]],'#d46e52',INK,3);path(c,[[57,52],[100,104],[102,155],[52,112]],'#d46e52',INK,3);c.restore();
     c.save();c.translate(448,1550);c.rotate(-.1);text(c,'向上',0,0,114,'#39716c',950,'center');text(c,'有光',0,119,114,'#39716c',950,'center');c.restore();c.restore();
+  }
+  private duckWindow(c:CanvasRenderingContext2D,unlocked:boolean){
+    const w=secretWindow;c.save();c.translate(w.x,w.y);
+    rounded(c,0,0,w.w,w.h,4,unlocked?YELLOW:'#7c9c91',INK,3);
+    rounded(c,6,6,w.w-12,w.h-12,2,'#fff1cf');
+    // A duck takes a suspiciously comfortable bath behind the meeting sign.
+    path(c,[[7,7],[27,7],[19,64],[7,72]],'#e8a18a');path(c,[[w.w-7,7],[w.w-27,7],[w.w-19,64],[w.w-7,72]],'#e8a18a');
+    ellipse(c,48,75,24,18,YELLOW,INK);ellipse(c,55,53,17,18,YELLOW,INK);
+    path(c,[[69,51],[84,58],[69,63]],'#ed955e',INK,1.5);ellipse(c,58,49,2.5,3,INK);
+    line(c,42,45,46,43,'#fff7b0',3);path(c,[[40,69],[34,76],[44,78]],'#e8b500');
+    rounded(c,16,80,68,22,9,'#91d6df',INK,2);rounded(c,13,77,74,8,4,'#d9f8fa',INK,1.5);
+    for(let i=0;i<5;i++)ellipse(c,24+i*12,76-i%2*4,5,5,'#f8ffff', '#8bbbc4');
+    if(unlocked){
+      rounded(c,10,10,78,19,3,YELLOW,INK,1);text(c,'嘘，带薪泡澡',49,23,9,INK,700,'center');
+      star(c,14,48,5,'#e9b327');star(c,84,40,this.reduced?4:4+Math.sin(this.time*3),'#e9b327');
+    }
+    rounded(c,-5,w.h-1,w.w+10,9,2,'#cfdbbf',INK,2);c.restore();
   }
   private window(c:CanvasRenderingContext2D,x:number,y:number,w:number,h:number,variant:number){
     rounded(c,x+3,y+6,w,h,3,'#203c4b22');rounded(c,x,y,w,h,3,'#537e82',INK,3);c.fillStyle=variant%3===0?'#f5d49d':'#a8d0cc';c.fillRect(x+7,y+7,w-14,h-14);
@@ -213,7 +244,7 @@ export class Renderer {
     text(c,'这次，我真的上天了。',450,148,42,INK,900,'center');text(c,'CLEAN A LITTLE. FLY A LITTLE HIGHER.',450,187,12,'#607d86',600,'center');
     c.save();c.translate(244,220);c.scale(.42,.24);this.building(c,s,0,WORLD_HEIGHT,1);this.player(c,s,'victory');c.restore();
     rounded(c,76,949,748,157,12,'#fffdf3',INK,3);const values=[`${getHeightMeters(s)}m`,`${s.cleanPct.toFixed(1)}%`,`${getResidentCount(s)}/4`,`${Math.floor(s.elapsed/60)}:${String(Math.floor(s.elapsed%60)).padStart(2,'0')}`];const labels=['到达高度','实际洁净度','发现住户','飞行用时'];values.forEach((v,i)=>{text(c,v,165+i*190,1005,31,INK,750,'center');text(c,labels[i],165+i*190,1036,12,'#607d86',500,'center');});text(c,`飞行评级 ${'★'.repeat(scoreStars(s))}${'☆'.repeat(3-scoreStars(s))} · 安全救援 ${s.rescues} 次`,450,1080,13,INK,600,'center');
-    text(c,'清洁一平方米，向上多一米。',450,1149,16,INK,700,'center');text(c,'品牌创意游戏 · 幻想设定，非真实产品能力',450,1180,10,'#607d86',400,'center');
+    text(c,s.secret.unlocked?`★ 隐藏成就：${secretWindow.achievement}`:'清洁一平方米，向上多一米。',450,1149,16,INK,700,'center');text(c,'品牌创意游戏 · 幻想设定，非真实产品能力',450,1180,10,'#607d86',400,'center');
     return new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
   }
 }

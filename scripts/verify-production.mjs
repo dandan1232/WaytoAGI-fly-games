@@ -33,6 +33,15 @@ try{
   await page.getByRole('button',{name:'继续起飞'}).click();await page.getByRole('button',{name:'回到补水点',exact:true}).click();
   assert.equal(await page.locator('#water-value').textContent(),'100%');
   await page.getByRole('button',{name:'暂停游戏'}).click();await page.getByRole('button',{name:'从头再飞一次'}).click();assert.equal(await page.locator('#clean-value').textContent(),'0.0%');
+  // Aim at the visible lower-left glass in the fixed desktop viewport, using normal mouse input only.
+  await page.getByRole('button',{name:'收起提示'}).click();await page.waitForTimeout(1000);
+  await page.mouse.move(554,409);await page.mouse.down();await page.waitForTimeout(1150);await page.mouse.up();
+  assert.ok(await page.locator('#achievement-banner').isVisible());
+  assert.equal(await page.locator('#achievement-heading').textContent(),'隐藏成就解锁');
+  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('karcher-flight-achievements-v1')||'null')?.duckWindow),true);
+  await page.getByRole('button',{name:'回到补水点',exact:true}).click();await page.waitForTimeout(500);await page.screenshot({path:'work/production-secret.png'});
+  await page.reload({waitUntil:'networkidle'});await page.getByRole('button',{name:'开始起飞'}).click();
+  assert.ok((await page.locator('#achievement-chip').getAttribute('class')).includes('earned'));
   const mobile=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:1});
   const phone=await mobile.newPage();phone.on('pageerror',e=>errors.push(e.message));phone.on('requestfailed',r=>failures.push(r.url()));
   await phone.goto(url,{waitUntil:'networkidle'});assert.equal(await phone.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
@@ -43,6 +52,6 @@ try{
   await phone.getByRole('button',{name:'继续起飞'}).tap();await phone.locator('#rescue-touch').tap();await phone.waitForTimeout(500);await phone.screenshot({path:'work/production-mobile.png'});
   const tablet=await browser.newContext({viewport:{width:768,height:1024}}),tab=await tablet.newPage();tab.on('pageerror',e=>errors.push(e.message));tab.on('requestfailed',r=>failures.push(r.url()));await tab.goto(url,{waitUntil:'networkidle'});assert.equal(await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);await tab.getByRole('button',{name:'开始起飞'}).click();assert.ok(await tab.getByRole('button',{name:'暂停游戏'}).isVisible());
   assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);
-  const report={verifiedAt:new Date().toISOString(),url,http:response.status,anonymous:true,assetsMatchLocalBuild:true,assets:checked,productAssetDecoded:true,desktop:{height,clean,water,pause:true,rescue:true,restart:true},mobile:{width:390,height:844,flightHeight:mobileHeight,touch:true,noOverflow:true},tablet:{width:768,height:1024,start:true,noOverflow:true},productionDebugInterface:false,pageErrors:errors,failedRequests:failures};
+  const report={verifiedAt:new Date().toISOString(),url,http:response.status,anonymous:true,assetsMatchLocalBuild:true,assets:checked,productAssetDecoded:true,secretAchievement:{realMouseUnlock:true,survivesReload:true},desktop:{height,clean,water,pause:true,rescue:true,restart:true},mobile:{width:390,height:844,flightHeight:mobileHeight,touch:true,noOverflow:true},tablet:{width:768,height:1024,start:true,noOverflow:true},productionDebugInterface:false,pageErrors:errors,failedRequests:failures};
   await writeFile('work/production-verification.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
 }finally{await browser.close();}

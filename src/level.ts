@@ -42,6 +42,12 @@ export const residentDefs: ResidentDef[] = [
   { id: 'grandma', name: '阳台花神', line: '小伙子，飞得不错！花不用浇，谢谢。', x: 255, y: 780, w: 112, h: 112, appearance: 'grandma' },
 ];
 
+/** Replaces the lowest left-hand window, reachable from the starting refill. */
+export const secretWindow = {
+  id: 'off-duty-duck', x: 235, y: 2640, w: 98, h: 115,
+  threshold: 70, achievement: '原来你在摸鱼',
+} as const;
+
 export const mudDefs = [
   { x: 588, y: 2630, r: 27, hp: 1 },
   { x: 298, y: 2205, r: 30, hp: 1 },

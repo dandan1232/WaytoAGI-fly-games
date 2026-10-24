@@ -1,7 +1,53 @@
 import { test, expect, type Page } from '@playwright/test';
-import { platforms } from '../src/level.ts';
+import { platforms, secretWindow } from '../src/level.ts';
 
 async function snapshot(page:Page){return page.evaluate(()=>(window as any).__FLY_DEBUG__.snapshot());}
+
+async function washSecret(page:Page,touch=false){
+  const target={x:secretWindow.x+30,y:secretWindow.y+30};
+  const cdp=touch?await page.context().newCDPSession(page):null;
+  const box=touch?(await page.locator('#joystick').boundingBox())!:null;
+  let held=false;const deadline=Date.now()+5000;
+  try{
+    while(Date.now()<deadline){
+      const s=await snapshot(page);if(s.secret.unlocked)break;
+      if(touch){
+        const dx=target.x-s.player.x,dy=target.y-s.player.y,n=Math.hypot(dx,dy);
+        await cdp!.send('Input.dispatchTouchEvent',{type:held?'touchMove':'touchStart',touchPoints:[{x:box!.x+box!.width/2+dx/n*46,y:box!.y+box!.height/2+dy/n*46}]});
+      }else{
+        const at=await page.evaluate(target=>{const p=(window as any).__FLY_DEBUG__.toScreen(target.x,target.y),r=document.querySelector('canvas')!.getBoundingClientRect();return{x:p.x+r.x,y:p.y+r.y};},target);
+        await page.mouse.move(at.x,at.y);if(!held)await page.mouse.down();
+      }
+      held=true;await page.waitForTimeout(30);
+    }
+  }finally{if(cdp){await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();}else await page.mouse.up();}
+  expect((await snapshot(page)).secret.unlocked).toBe(true);
+}
+
+test('secret glass unlocks through mouse spray and the collection survives reload/replay',async({page})=>{
+  await page.goto('/');await page.getByRole('button',{name:'开始起飞'}).click();
+  await page.getByRole('button',{name:'收起提示'}).click();await washSecret(page);
+  await expect(page.locator('#achievement-banner')).toBeVisible();await expect(page.locator('#achievement-heading')).toHaveText('隐藏成就解锁');
+  await expect(page.locator('#achievement-chip')).toHaveClass(/earned/);
+  expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('karcher-flight-achievements-v1')||'null'))).toEqual({duckWindow:true});
+  await page.getByRole('button',{name:'回到补水点',exact:true}).click();await page.waitForTimeout(500);
+  expect((await snapshot(page)).secret.unlocked).toBe(true);await page.screenshot({path:'work/secret-desktop.png'});
+  await page.reload();await page.getByRole('button',{name:'开始起飞'}).click();
+  await expect(page.locator('#achievement-chip')).toHaveClass(/earned/);expect((await snapshot(page)).secret.unlocked).toBe(false);
+  await page.getByRole('button',{name:'收起提示'}).click();await washSecret(page);
+  await expect(page.locator('#achievement-heading')).toHaveText('彩蛋再次发现');
+  await page.getByRole('button',{name:'暂停游戏'}).click();await page.getByRole('button',{name:'从头再飞一次'}).click();
+  expect((await snapshot(page)).secret.unlocked).toBe(false);await expect(page.locator('#achievement-banner')).toBeHidden();await expect(page.locator('#achievement-chip')).toHaveClass(/earned/);
+});
+
+test('secret glass can be washed with the mobile touch joystick',async({browser})=>{
+  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+  const page=await context.newPage();await page.goto('/');await page.getByRole('button',{name:'开始起飞'}).tap();
+  await page.getByRole('button',{name:'收起提示'}).tap();await washSecret(page,true);
+  await expect(page.locator('#achievement-banner')).toBeVisible();await expect(page.locator('#achievement-chip')).toHaveClass(/earned/);
+  await page.locator('#rescue-touch').tap();await page.waitForTimeout(500);await page.screenshot({path:'work/secret-mobile.png'});
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await context.close();
+});
 test('desktop: keyboard flight, real cleaning, pause, help, rescue and restart',async({page})=>{
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto('/');await expect(page.getByRole('button',{name:'开始起飞'})).toBeVisible();

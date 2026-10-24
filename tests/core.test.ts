@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createGame, stepGame, rescue, scoreStars, FIXED_DT, MAX_WATER, PHYSICS, getResidentCount } from '../src/core.ts';
 import type { GameState, Input } from '../src/core.ts';
-import { platforms, obstacles, WORLD_HEIGHT } from '../src/level.ts';
+import { platforms, obstacles, WORLD_HEIGHT, secretWindow } from '../src/level.ts';
 
 const idle: Input = { dx: 0, dy: 1, spraying: false };
 function run(state: GameState, input: Input, seconds: number) {
@@ -135,6 +135,27 @@ test('resident unlock is earned by actual spray coverage and emits one discovery
   assert.ok(s.residents.slice(1).every(r => !r.unlocked));
 });
 
+test('secret window needs local cleaning; idle time and distant spray cannot unlock it', () => {
+  const s=createGame();run(s,idle,3);assert.deepEqual(s.secret,{unlocked:false,cleanPct:0});
+  s.player.y=600;run(s,{dx:1,dy:0,spraying:true},.5);
+  assert.deepEqual(s.secret,{unlocked:false,cleanPct:0});
+});
+
+test('washing the secret glass awards once, preserves progress on rescue, and resets per run', () => {
+  const s=createGame(),events=[];
+  for(let y=secretWindow.y;y<=secretWindow.y+secretWindow.h;y+=18){
+    for(let n=0;n<65;n++){
+      s.player.x=secretWindow.x-45;s.player.y=y;s.player.vx=s.player.vy=0;s.player.water=100;
+      events.push(...stepGame(s,{dx:1,dy:0,spraying:true},FIXED_DT));
+    }
+  }
+  assert.equal(s.secret.unlocked,true);assert.ok(s.secret.cleanPct>=secretWindow.threshold);
+  assert.equal(events.filter(e=>e.type==='achievement'&&e.id===secretWindow.id).length,1);
+  assert.equal(getResidentCount(s),0);assert.equal(scoreStars(s),scoreStars(createGame()));
+  const before={...s.secret};rescue(s);assert.deepEqual(s.secret,before);
+  assert.deepEqual(createGame().secret,{unlocked:false,cleanPct:0});
+});
+
 test('mud is removed by the beam, once, without changing distant mud', () => {
   const s = createGame();
   const mud = s.mud[0];
@@ -182,6 +203,7 @@ test('won runs lock physics and score without changing measured cleanliness', ()
   const events = run(s, idle, 0.2);
   assert.equal(s.status, 'won');
   assert.ok(events.some(e => e.type === 'win'));
+  assert.equal(s.secret.unlocked,false);
   assert.equal(scoreStars(s), 1);
   const snapshot = structuredClone(s);
   run(s, { dx: 0, dy: 1, spraying: true }, 1);

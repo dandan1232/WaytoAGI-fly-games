@@ -1,4 +1,4 @@
-import { BUILDING, WORLD_HEIGHT, WORLD_WIDTH, platforms, obstacles, residentDefs, mudDefs } from './level.ts';
+import { BUILDING, WORLD_HEIGHT, WORLD_WIDTH, platforms, obstacles, residentDefs, mudDefs, secretWindow } from './level.ts';
 import type { Rect, ResidentDef, Platform } from './level.ts';
 
 export const FIXED_DT = 1 / 120;
@@ -28,7 +28,7 @@ export interface DirtCell extends Rect { amount: number }
 export interface Resident extends ResidentDef { unlocked: boolean; cleanPct: number }
 export interface Mud { x: number; y: number; r: number; hp: number }
 export interface GameEvent {
-  type: 'resident' | 'rescue' | 'checkpoint' | 'win' | 'mud';
+  type: 'resident' | 'rescue' | 'checkpoint' | 'win' | 'mud' | 'achievement';
   id?: string;
   message?: string;
 }
@@ -36,6 +36,7 @@ export interface GameState {
   player: Player;
   dirt: DirtCell[];
   residents: Resident[];
+  secret: { unlocked: boolean; cleanPct: number };
   mud: Mud[];
   elapsed: number;
   cleanPct: number;
@@ -70,6 +71,7 @@ export function createGame(): GameState {
     player: { x: START_X, y: START_Y, vx: 0, vy: 0, w: PLAYER_W, h: PLAYER_H, water: MAX_WATER, grounded: true },
     dirt,
     residents: residentDefs.map((r) => ({ ...r, unlocked: false, cleanPct: 0 })),
+    secret: { unlocked: false, cleanPct: 0 },
     mud: mudDefs.map((m) => ({ ...m })),
     elapsed: 0, cleanPct: 0, highest: 0,
     checkpoint: { x: START_X, y: START_Y, platformId: START.id },
@@ -156,6 +158,20 @@ function clean(state: GameState, dt: number, events: GameEvent[]) {
       if (resident.cleanPct >= 60) {
         resident.unlocked = true;
         events.push({ type: 'resident', id: resident.id, message: `${resident.name}：${resident.line}` });
+      }
+    }
+    if (!state.secret.unlocked) {
+      let total = 0, grime = 0;
+      for (const cell of state.dirt) {
+        const cx = cell.x + cell.w / 2, cy = cell.y + cell.h / 2;
+        if (cx >= secretWindow.x && cx <= secretWindow.x + secretWindow.w && cy >= secretWindow.y && cy <= secretWindow.y + secretWindow.h) {
+          total++; grime += cell.amount;
+        }
+      }
+      state.secret.cleanPct = total ? clamp((1 - grime / total) * 100, 0, 100) : 0;
+      if (state.secret.cleanPct >= secretWindow.threshold) {
+        state.secret.unlocked = true;
+        events.push({ type: 'achievement', id: secretWindow.id });
       }
     }
   }

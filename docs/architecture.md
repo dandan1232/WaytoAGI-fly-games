@@ -21,7 +21,9 @@ scripts/           生产检查与浏览器验收辅助
 docs/              需求、架构、验收和部署证据
 ```
 
-数据流：Input → fixed-step simulation → GameState → Renderer / HUD。渲染不修改物理。存档只在结算时写入。核心逻辑可在 Node 中独立运行，同一关卡数据供实际游戏与模拟可达性验证使用。
+数据流：Input → fixed-step simulation → GameState → Renderer / HUD。渲染不修改物理。最佳成绩只在结算时写入，隐藏成就发现后即时收藏。核心逻辑可在 Node 中独立运行，同一关卡数据供实际游戏与模拟可达性验证使用。
+
+隐藏成就扩展：`level.secretWindow` 定义窗口区域与 70% 阈值，`GameState.secret` 保存本局实际清洁比例和发现状态。喷水移除污渍后统计该区域网格，越过阈值时只发出一次 `achievement` 事件。应用层即时写入独立的 `karcher-flight-achievements-v1` 收藏键（最佳成绩仍只在结算时写入）。渲染层绘制小黄鸭、窗框与进度，不授予成就；结局壁画揭晓也不能触发。收藏与本局状态分开，避免刷新后直接拥有干净窗户或重复弹首次奖励。
 
 ## 坐标与时间
 

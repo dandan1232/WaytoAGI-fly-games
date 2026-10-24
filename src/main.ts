@@ -1,11 +1,11 @@
 import './style.css';
 import { createGame, stepGame, rescue, getHeightMeters, getResidentCount, scoreStars, FIXED_DT } from './core.ts';
 import type { GameEvent } from './core.ts';
-import { districts } from './level.ts';
+import { districts, secretWindow } from './level.ts';
 import { Renderer } from './render.ts';
 import { Controls } from './input.ts';
 import { GameAudio } from './audio.ts';
-import { loadBest, saveBest } from './storage.ts';
+import { loadBest, saveBest, loadSecretAchievement, saveSecretAchievement } from './storage.ts';
 
 const $ = <T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
 const canvas=$<HTMLCanvasElement>('world');
@@ -17,6 +17,7 @@ const audio=new GameAudio();
 let accumulator=0, last=performance.now(), lastHud=0, toastTimer=0, showResultTimer=0;
 let hintDismissed=false, milestone=0;
 let resumeAfterHelp=false;
+let secretCollected=loadSecretAchievement(), achievementTimer=0;
 const help=$<HTMLDialogElement>('help-dialog'),pauseDialog=$<HTMLDialogElement>('pause-dialog'),results=$<HTMLDialogElement>('result-dialog');
 const fmt=(seconds:number)=>`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(Math.floor(seconds%60)).padStart(2,'0')}`;
 const setHidden=(id:string,hidden:boolean)=>$(id).classList.toggle('hidden',hidden);
@@ -25,14 +26,28 @@ if(best)$('title-best').textContent=`个人最佳：${'★'.repeat(best.stars)} 
 
 function announce(message:string){$('announce').textContent=message;}
 function toast(message:string,duration=3500){clearTimeout(toastTimer);$('toast').textContent=message;setHidden('toast',false);announce(message);toastTimer=window.setTimeout(()=>setHidden('toast',true),duration);}
+function updateAchievement(){
+  $('achievement-chip').classList.toggle('earned',secretCollected);
+  $('achievement-chip').textContent=secretCollected?`★ ${secretWindow.achievement}`:'◇ 隐藏成就 · ?';
+  $('achievement-chip').title=secretCollected?'收藏成就：洗亮「请勿打扰」窗户，发现泡澡的小黄鸭':'有扇窗上写着「请勿打扰」……';
+}
+function discoverSecret(){
+  const first=!secretCollected, saved=saveSecretAchievement();secretCollected=true;
+  clearTimeout(achievementTimer);setHidden('toast',true);
+  $('achievement-heading').textContent=first?'隐藏成就解锁':'彩蛋再次发现';
+  $('achievement-save').textContent=saved?'已收藏 · 下次回来也记得':'本次已解锁 · 浏览器未允许保存';
+  setHidden('achievement-banner',false);updateAchievement();audio.chime('achievement');
+  announce(`隐藏成就：${secretWindow.achievement}。小黄鸭正在偷偷泡澡。`);
+  achievementTimer=window.setTimeout(()=>setHidden('achievement-banner',true),6500);
+}
 function start(){
-  clearTimeout(showResultTimer);clearTimeout(toastTimer);
+  clearTimeout(showResultTimer);clearTimeout(toastTimer);clearTimeout(achievementTimer);setHidden('achievement-banner',true);
   [help,pauseDialog,results].forEach(d=>{if(d.open)d.close();});
   state=createGame();mode='playing';controls.clear();controls.active=true;renderer.reset();accumulator=0;last=performance.now();milestone=0;hintDismissed=false;
   ['title-screen','reveal-caption','toast'].forEach(id=>setHidden(id,true));
   ['hud','pause-button','height-ruler','desktop-controls','touch-controls','in-game-hint'].forEach(id=>setHidden(id,false));
   $('hint-title').textContent='先朝脚下喷水试试';$('hint-body').textContent=matchMedia('(pointer:coarse)').matches?'摇杆向下拖动，角色就会向上飞；松手停下':'按住鼠标喷水，松手停下 · 黄色平台可以补水';
-  document.body.classList.add('is-playing');canvas.focus({preventScroll:true});updateHud();announce('飞行开始。向下喷水，角色向上飞。');
+  document.body.classList.add('is-playing');canvas.focus({preventScroll:true});updateHud();updateAchievement();announce('飞行开始。向下喷水，角色向上飞。');
 }
 function pause(showDialog=true){
   if(mode!=='playing')return;
@@ -48,7 +63,7 @@ function resume(){
 function finish(){
   if(mode==='victory')return;
   mode='victory';controls.active=false;controls.clear();audio.spray(false);audio.chime('win');
-  ['hud','height-ruler','pause-button','in-game-hint','touch-controls','desktop-controls','toast'].forEach(id=>setHidden(id,true));
+  ['hud','height-ruler','pause-button','in-game-hint','touch-controls','desktop-controls','toast','achievement-banner'].forEach(id=>setHidden(id,true));
   const stars=scoreStars(state),residents=getResidentCount(state);
   const saved=saveBest({stars,clean:state.cleanPct,residents,elapsed:state.elapsed,rescues:state.rescues,height:getHeightMeters(state)});
   $('result-stars').innerHTML=Array.from({length:3},(_,i)=>`<svg ${i>=stars?'class="empty"':''} aria-hidden="true"><use href="#star"/></svg>`).join('');
@@ -56,11 +71,13 @@ function finish(){
   $('result-height').textContent=`${getHeightMeters(state)} m`;$('result-clean').textContent=`${state.cleanPct.toFixed(1)}%`;
   $('result-residents').textContent=`${residents} / 4`;$('result-time').textContent=fmt(state.elapsed);
   $('result-save').textContent=`安全救援 ${state.rescues} 次 · ${saved.saved?'个人最佳已保存在当前浏览器':'浏览器未允许保存，仍可下载海报留念'}`;
+  $('result-achievement').textContent=state.secret.unlocked?`★ 本局发现：${secretWindow.achievement}`:secretCollected?`★ 已收藏：${secretWindow.achievement}`:'◇ 隐藏成就仍在某扇脏窗后等你';
   showResultTimer=window.setTimeout(()=>setHidden('reveal-caption',false),matchMedia('(prefers-reduced-motion: reduce)').matches?400:4000);
   announce(`登顶成功，获得 ${stars} 星。实际洁净度 ${state.cleanPct.toFixed(1)}%。`);
 }
 function handle(events:GameEvent[]){
   for(const event of events){
+    if(event.type==='achievement'){discoverSecret();continue;}
     if(event.type==='win'){finish();continue;}
     if(event.message)toast(event.message,event.type==='resident'?5500:2500);
     if(event.type!=='mud')audio.chime(event.type);
@@ -131,7 +148,7 @@ requestAnimationFrame(frame);
 // Vite removes this entire branch from production builds; no state mutation hook exists.
 if(import.meta.env.DEV){
   Object.defineProperty(window,'__FLY_DEBUG__',{value:Object.freeze({
-    snapshot:()=>({mode,player:{...state.player},elapsed:state.elapsed,cleanPct:state.cleanPct,checkpoint:{...state.checkpoint},rescues:state.rescues,status:state.status,highest:state.highest,residents:state.residents.map(r=>({id:r.id,unlocked:r.unlocked})),screen:renderer.worldToScreen(state.player.x,state.player.y)}),
+    snapshot:()=>({mode,player:{...state.player},elapsed:state.elapsed,cleanPct:state.cleanPct,checkpoint:{...state.checkpoint},rescues:state.rescues,status:state.status,highest:state.highest,secret:{...state.secret},residents:state.residents.map(r=>({id:r.id,unlocked:r.unlocked})),screen:renderer.worldToScreen(state.player.x,state.player.y)}),
     toScreen:(x:number,y:number)=>renderer.worldToScreen(x,y),
   }),configurable:false,writable:false});
 }

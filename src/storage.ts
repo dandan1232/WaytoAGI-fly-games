@@ -1,5 +1,14 @@
 export interface RecordData { stars: number; clean: number; residents: number; elapsed: number; rescues: number; height: number }
 const KEY = 'karcher-flight-best-v1';
+const SECRET_KEY = 'karcher-flight-achievements-v1';
+export function loadSecretAchievement(): boolean {
+  try { return JSON.parse(localStorage.getItem(SECRET_KEY) || 'null')?.duckWindow === true; }
+  catch { return false; }
+}
+export function saveSecretAchievement(): boolean {
+  try { localStorage.setItem(SECRET_KEY, JSON.stringify({ duckWindow: true })); return true; }
+  catch { return false; }
+}
 export function loadBest(): RecordData | null {
   try {
     const value = JSON.parse(localStorage.getItem(KEY) || 'null');
