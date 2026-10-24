@@ -1,30 +1,87 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ffda00"><meta name="description" content="往下喷，往上飞！用水枪反冲力爬上摩天楼，洗出窗后的搞笑住户，揭晓整栋楼的秘密画作。"><title>我靠洗地飞起来了 · 卡赫清洁飞行队</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"></head><body>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffda00">
+  <meta name="description" content="往下喷，往上飞。用水枪反冲力登上天台，洗亮窗户，发现藏在楼里的秘密。">
+  <title>我靠洗地飞起来了 · 卡赫清洁飞行队</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
 <svg class="symbols" aria-hidden="true"><defs>
-<symbol id="spark" viewBox="0 0 24 24"><path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5Z"/></symbol>
-<symbol id="drop" viewBox="0 0 24 24"><path d="M12 2C10 7 5 10 5 15a7 7 0 0 0 14 0c0-5-5-8-7-13Z"/><path d="M9 15a3 3 0 0 0 3 3"/></symbol>
-<symbol id="arrow" viewBox="0 0 24 24"><path d="M5 18 19 4M5 4h14v14"/></symbol>
-<symbol id="pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
-<symbol id="sound" viewBox="0 0 24 24"><path d="m11 4-5 4H3v8h3l5 4ZM15 8c3 2 3 6 0 8m3-11c5 4 5 10 0 14"/></symbol>
-<symbol id="mute" viewBox="0 0 24 24"><path d="m11 4-5 4H3v8h3l5 4ZM16 9l6 6m0-6-6 6"/></symbol>
-<symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 8.5c0-3 6-3 6 0 0 2-3 2-3 4m0 3v1"/></symbol>
-<symbol id="retry" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 0 5m0-12v7h7"/></symbol>
-<symbol id="star" viewBox="0 0 24 24"><path d="m12 2 3 6 7 1-5 5 1 8-6-4-6 4 1-8-5-5 7-1Z"/></symbol>
-<symbol id="flag" viewBox="0 0 24 24"><path d="M5 22V3m0 1c5-5 9 5 14 0v10c-5 5-9-5-14 0"/></symbol>
+  <symbol id="spark" viewBox="0 0 24 24"><path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5Z"/></symbol>
+  <symbol id="drop" viewBox="0 0 24 24"><path d="M12 2C10 7 5 10 5 15a7 7 0 0 0 14 0c0-5-5-8-7-13Z"/><path d="M9 15a3 3 0 0 0 3 3"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+  <symbol id="pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="sound" viewBox="0 0 24 24"><path d="m11 4-5 4H3v8h3l5 4ZM15 8c3 2 3 6 0 8m3-11c5 4 5 10 0 14"/></symbol>
+  <symbol id="mute" viewBox="0 0 24 24"><path d="m11 4-5 4H3v8h3l5 4ZM16 9l6 6m0-6-6 6"/></symbol>
+  <symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 8.5c0-3 6-3 6 0 0 2-3 2-3 4m0 3v1"/></symbol>
+  <symbol id="retry" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 0 5m0-12v7h7"/></symbol>
+  <symbol id="star" viewBox="0 0 24 24"><path d="m12 2 3 6 7 1-5 5 1 8-6-4-6 4 1-8-5-5 7-1Z"/></symbol>
+  <symbol id="flag" viewBox="0 0 24 24"><path d="M5 22V3m0 1c5-5 9 5 14 0v10c-5 5-9-5-14 0"/></symbol>
 </defs></svg>
-<header class="topbar"><a class="brand" href="https://www.kahechina.com/" target="_blank" rel="noreferrer">KÄRCHER<i></i></a><span class="brand-line"></span><span class="team-name">清洁飞行队<span>CLEAN & FLY CLUB</span></span><div class="top-actions"><span class="edition">VOL. 01 · 天台见</span><button id="audio-button" class="round-button" aria-label="开启音效" aria-pressed="false"><svg><use href="#mute"/></svg></button><button id="help-button" class="round-button" aria-label="玩法说明"><svg><use href="#help"/></svg></button><button id="pause-button" class="round-button hidden" aria-label="暂停游戏"><svg><use href="#pause"/></svg></button></div></header>
-<main id="stage" class="stage"><canvas id="world" tabindex="0" role="application" aria-label="水枪反冲跑酷。方向键控制喷水方向，空格喷水，角色向反方向飞行，P 暂停。"></canvas>
-<section id="title-screen" class="title-screen"><div class="title-copy"><div class="label"><span class="live-dot"></span> 高空清洁实习生，招募中</div><h1>我靠洗地<br><span class="title-yellow">飞起来了<svg><use href="#arrow"/></svg></span></h1><p class="tagline">谁把跳跃键拆了？<br>没关系，我们有水枪。</p><p class="intro-copy">向下喷水，反向起飞。<br>一路洗出惊喜，看看这栋楼藏着什么。</p><button id="start-button" class="big-button">开始起飞 <svg><use href="#arrow"/></svg></button><div class="start-meta"><span>约 3–5 分钟</span><i></i><span>无需下载</span><i></i><span>掉落可救援</span></div><p class="best-label" id="title-best"></p></div><aside class="equipment-card" aria-label="本次飞行装备：卡赫 KHB AIR"><span class="equipment-eyebrow">YOUR FLIGHT GEAR / 本次装备</span><img src="/src/assets/khb-air.png" alt="卡赫 KHB AIR 清洗机，黑色筒身、黄色折叠握柄和短旋转喷头" width="1448" height="1086" fetchpriority="high"><div class="equipment-copy"><strong>KHB AIR</strong><span>无线折叠清洗机</span><small>小小一把，把想象力拉满。</small></div><span class="equipment-foot">真实装备外形 × 脑洞飞行</span></aside><div class="title-bottom"><span class="stamp">100%<small>奇思妙想驱动</small></span><p>把清洁的爽感，<br>变成向上的动力。</p><svg><use href="#spark"/></svg></div></section>
-<section id="hud" class="hud hidden" aria-label="游戏状态"><div class="mission-chip"><span class="live-dot"></span><span id="stage-name">出发 · 先学会飞</span></div><div class="altitude-card"><span>当前高度 <small>距地面</small></span><strong><b id="height">0</b><small>m</small></strong><div class="height-track"><div id="height-fill"></div></div><p>目标：<b>楼顶天台</b> <svg><use href="#flag"/></svg></p></div><div class="water-card"><div><span><svg><use href="#drop"/></svg> 水箱</span><strong id="water-value">100%</strong></div><div class="water-track"><div id="water-fill"></div></div><small id="water-note">落在黄色平台，自动补水</small></div><div class="clean-card"><svg><use href="#spark"/></svg><span>已洗亮 <strong id="clean-value">0%</strong></span></div><div id="residents" class="resident-list" aria-label="发现的住户"><span>窗后有什么？</span><div><b title="尚未发现">?</b><b title="尚未发现">?</b><b title="尚未发现">?</b><b title="尚未发现">?</b></div></div><div id="achievement-chip" class="achievement-chip">◇ 隐藏成就 · ?</div></section>
-<div id="height-ruler" class="height-ruler hidden" aria-hidden="true"><span>ROOF</span><div class="ruler-line"><i id="ruler-player"></i></div><span>GROUND</span></div>
-<div id="in-game-hint" class="in-game-hint hidden"><span class="hint-arrow">↓</span><div><strong id="hint-title">先朝脚下喷水试试</strong><span id="hint-body">按住鼠标喷水，松手停下 · 黄色平台可以补水</span></div><button id="dismiss-hint" aria-label="收起提示">×</button></div>
-<div id="toast" class="toast hidden" role="status"></div><aside id="achievement-banner" class="achievement-banner hidden" role="status"><span class="achievement-medal" aria-hidden="true">★</span><div><span id="achievement-heading">隐藏成就解锁</span><strong>原来你在摸鱼</strong><p>窗外在飞，窗里在泡澡。</p><small id="achievement-save"></small></div></aside>
-<div id="touch-controls" class="touch-controls hidden"><button id="rescue-touch" class="rescue-button" aria-label="回到补水点"><svg><use href="#retry"/></svg><span>呼叫救援</span></button><div class="joystick-wrap"><span>拖动摇杆 · 控制水流方向</span><div id="joystick" class="joystick" role="group" aria-label="喷水摇杆，向下拖动起飞"><span class="stick-up">↑</span><span class="stick-down">↓</span><span class="stick-left">←</span><span class="stick-right">→</span><div class="joystick-knob"><svg><use href="#drop"/></svg></div></div></div></div>
-<div id="desktop-controls" class="desktop-controls hidden"><span><kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> 水流方向 <kbd>空格</kbd> 喷水</span><button id="rescue-button"><svg><use href="#retry"/></svg> 回到补水点</button></div>
-<div id="reveal-caption" class="reveal-caption hidden"><span>EVERY LITTLE CLEAN LEAVES A MARK</span><h2>你的每一步，<br>都在发光。</h2><p>焕新画作揭晓 · 清洁成绩保留你的真实轨迹</p><button id="show-results" class="big-button">查看飞行成绩 <svg><use href="#arrow"/></svg></button></div>
+<header class="topbar">
+  <a class="brand" href="https://www.kahechina.com/" target="_blank" rel="noreferrer">KÄRCHER<i></i></a>
+  <span class="team-name">清洁飞行队</span>
+  <div class="top-actions">
+    <span class="edition">水枪反冲力跑酷</span>
+    <button id="audio-button" class="round-button" aria-label="开启音效" aria-pressed="false"><svg aria-hidden="true"><use href="#mute"/></svg></button>
+    <button id="help-button" class="round-button" aria-label="玩法说明"><svg aria-hidden="true"><use href="#help"/></svg></button>
+    <button id="pause-button" class="round-button hidden" aria-label="暂停游戏"><svg aria-hidden="true"><use href="#pause"/></svg></button>
+  </div>
+</header>
+<main id="stage" class="stage">
+  <canvas id="world" tabindex="0" role="application" aria-label="水枪反冲跑酷。方向键控制喷水方向，空格喷水，角色向反方向飞行，P 暂停。"></canvas>
+  <section id="title-screen" class="title-screen" aria-label="游戏开始">
+    <div class="title-copy">
+      <p class="title-kicker">一把水枪，爬上整栋楼。</p>
+      <h1><span class="title-first">我靠洗地</span><span class="title-last">飞起来了</span></h1>
+      <p class="intro-copy">向下喷水，靠反冲力登顶。<br>顺手洗亮窗户，看看谁在里面。</p>
+      <button id="start-button" class="big-button">开始起飞 <svg aria-hidden="true"><use href="#arrow"/></svg></button>
+      <p class="start-meta"><span class="mouse-instruction">按住鼠标喷水</span><span class="touch-instruction">拖动摇杆喷水</span><span>松手停喷 · 掉落可救援</span></p>
+      <p class="best-label" id="title-best"></p>
+    </div>
+    <aside class="equipment-card" aria-label="本次飞行装备：卡赫 KHB AIR">
+      <img src="/src/assets/khb-air.png" alt="卡赫 KHB AIR 清洗机，黑色筒身、黄色折叠握柄和短旋转喷头" width="1448" height="1086" fetchpriority="high">
+      <div class="equipment-copy"><span>本次装备</span><strong>KHB AIR</strong><small>无线折叠清洗机</small></div>
+    </aside>
+    <div class="scene-caption" aria-hidden="true"><span>水往下</span><span class="scene-direction">↓ <i></i> ↑</span><strong>人往上</strong></div>
+  </section>
+  <section id="hud" class="hud hidden" aria-label="游戏状态">
+    <div class="mission-chip"><span class="live-dot"></span><span id="stage-name">早八街区</span></div>
+    <div class="altitude-card"><span>距地面</span><strong><b id="height">0</b><small>m</small></strong><div class="height-track"><div id="height-fill"></div></div><p>目标 <b>楼顶天台</b><svg aria-hidden="true"><use href="#flag"/></svg></p></div>
+    <div class="water-card"><div><span><svg aria-hidden="true"><use href="#drop"/></svg> 水量</span><strong id="water-value">100%</strong></div><div class="water-track"><div id="water-fill"></div></div><small id="water-note">落在黄色平台，自动补水</small></div>
+    <div class="clean-card"><span>已洗亮</span><strong id="clean-value">0%</strong></div>
+    <div id="residents" class="resident-list" aria-label="发现的住户"><span>窗后住户</span><div><b title="尚未发现">?</b><b title="尚未发现">?</b><b title="尚未发现">?</b><b title="尚未发现">?</b></div></div>
+    <div id="achievement-chip" class="achievement-chip">◇ 隐藏成就 · ?</div>
+  </section>
+  <div id="height-ruler" class="height-ruler hidden" aria-hidden="true"><span>楼顶</span><div class="ruler-line"><i id="ruler-player"></i></div><span>地面</span></div>
+  <div id="in-game-hint" class="in-game-hint hidden"><span class="hint-arrow" aria-hidden="true">↓</span><div><strong id="hint-title">先朝脚下喷水试试</strong><span id="hint-body">按住鼠标喷水，松手停下</span></div><button id="dismiss-hint" aria-label="收起提示">×</button></div>
+  <div id="toast" class="toast hidden" role="status"></div>
+  <aside id="achievement-banner" class="achievement-banner hidden" role="status"><span class="achievement-medal" aria-hidden="true"><svg><use href="#star"/></svg></span><div><span id="achievement-heading">隐藏成就解锁</span><strong>原来你在摸鱼</strong><p>窗外在飞，窗里在泡澡。</p><small id="achievement-save"></small></div></aside>
+  <div id="touch-controls" class="touch-controls hidden">
+    <button id="rescue-touch" class="rescue-button" aria-label="回到补水点"><svg aria-hidden="true"><use href="#retry"/></svg><span>救援</span></button>
+    <div class="joystick-wrap"><span>水流方向</span><div id="joystick" class="joystick" role="group" aria-label="喷水摇杆，向下拖动起飞"><span class="stick-up">↑</span><span class="stick-down">↓</span><span class="stick-left">←</span><span class="stick-right">→</span><div class="joystick-knob"><svg aria-hidden="true"><use href="#drop"/></svg></div></div></div>
+  </div>
+  <div id="desktop-controls" class="desktop-controls hidden"><span><kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> 水流方向 <kbd>空格</kbd> 喷水</span><button id="rescue-button"><svg aria-hidden="true"><use href="#retry"/></svg> 回到补水点</button></div>
+  <div id="reveal-caption" class="reveal-caption hidden"><span>本次飞行完成</span><h2>天台，到了。</h2><p>楼面画作揭晓，成绩按实际清洁计算。</p><button id="show-results" class="big-button">查看飞行成绩 <svg aria-hidden="true"><use href="#arrow"/></svg></button></div>
 </main>
-<footer class="bottom-bar"><span>清洁一平方米，向上多一米。</span><span>品牌创意游戏 · 反冲飞行为幻想设定，不代表真实产品能力</span></footer>
-<dialog id="help-dialog"><button class="close-dialog" aria-label="关闭说明">×</button><span class="dialog-label">飞行员速成手册</span><h2>先学会反着来。</h2><div class="rule-demo"><span>水流 ↓</span><strong>＝</strong><span>你 ↑</span></div><ol><li><strong>瞄准反方向</strong><p>鼠标朝脚下、按住左键就能向上飞。斜向喷水可以横移。键盘：方向键选水流方向，空格喷水。</p></li><li><strong>飞累了，落个脚</strong><p>黄色平台自动补水，并成为更高的救援点。水用完也不怕，点击「回到补水点」继续。</p></li><li><strong>顺手洗出一点惊喜</strong><p>喷水能洗掉窗面污渍、冲散泥团；把特殊窗户洗亮，就能见到住户。落上楼顶即通关。</p></li></ol><p class="dialog-small">手机：拖动右下摇杆指定水流方向，松手停止。P / Esc 暂停，M 切换音效。通关得一星，洗净 35% 加一星，发现 3 位住户再加一星。</p><button class="big-button close-help">知道了，天台见 <svg><use href="#arrow"/></svg></button></dialog>
-<dialog id="pause-dialog"><span class="dialog-label">TAKE A BREATH</span><h2 id="pause-heading">悬停一下，喘口气。</h2><p>计时、水量和物理已暂停。</p><button id="resume-button" class="big-button">继续起飞 <svg><use href="#arrow"/></svg></button><button id="restart-button" class="outline-button">从头再飞一次</button></dialog>
-<dialog id="result-dialog"><button class="close-dialog" aria-label="回到全楼画作">×</button><span class="dialog-label">CLEAN & FLY · 飞行成绩单</span><div id="result-stars" class="result-stars"></div><h2>这次，真的上天了。</h2><p class="result-subtitle">楼下的风景，被你洗出了新模样。</p><div class="result-grid"><div><span>到达高度</span><strong id="result-height"></strong></div><div><span>实际洁净度</span><strong id="result-clean"></strong></div><div><span>发现住户</span><strong id="result-residents"></strong></div><div><span>飞行用时</span><strong id="result-time"></strong></div></div><p id="result-achievement" class="result-achievement"></p><p id="result-save" class="dialog-small"></p><button id="poster-button" class="big-button">带走我的飞行海报 <svg><use href="#arrow"/></svg></button><button id="replay-button" class="outline-button">再飞一次，挑战更高分</button></dialog>
+<footer class="bottom-bar"><span>我靠洗地飞起来了</span><span>品牌创意游戏 · 飞行表现为幻想设定</span></footer>
+<dialog id="help-dialog">
+  <button class="close-dialog" aria-label="关闭说明">×</button><span class="dialog-label">怎么玩</span><h2>水往哪喷，人就反着飞。</h2>
+  <div class="rule-demo"><span>水流 ↓</span><span>人 ↑</span></div>
+  <ol><li><strong>朝脚下喷水，起飞</strong><p>鼠标指向水流方向，按住左键喷水。斜着喷可以横移。键盘用方向键选方向，空格喷水。</p></li><li><strong>松手落脚，补水</strong><p>黄色平台自动补水，也是救援检查点。水用完了，点击「回到补水点」继续。</p></li><li><strong>洗亮窗户，发现秘密</strong><p>喷水洗掉污渍，特殊窗后藏着住户和彩蛋。落在楼顶即通关。</p></li></ol>
+  <p class="dialog-small">手机拖动右下摇杆指定水流方向，松手停喷。P / Esc 暂停，M 切换音效。通关得一星；洗净 35%、发现 3 位住户，各加一星。</p>
+  <button class="big-button close-help">知道了，天台见 <svg aria-hidden="true"><use href="#arrow"/></svg></button>
+</dialog>
+<dialog id="pause-dialog"><span class="dialog-label">已暂停</span><h2 id="pause-heading">歇会儿，再飞。</h2><p>计时和水量已暂停。</p><button id="resume-button" class="big-button">继续起飞 <svg aria-hidden="true"><use href="#arrow"/></svg></button><button id="restart-button" class="outline-button">从头再飞一次</button></dialog>
+<dialog id="result-dialog">
+  <button class="close-dialog" aria-label="回到全楼画作">×</button><span class="dialog-label">飞行成绩</span><div id="result-stars" class="result-stars"></div><h2>登顶成功。</h2><p class="result-subtitle">这次的飞行记录</p>
+  <div class="result-grid"><div><span>到达高度</span><strong id="result-height"></strong></div><div><span>实际洁净度</span><strong id="result-clean"></strong></div><div><span>发现住户</span><strong id="result-residents"></strong></div><div><span>飞行用时</span><strong id="result-time"></strong></div></div>
+  <p id="result-achievement" class="result-achievement"></p><p id="result-save" class="dialog-small"></p><button id="poster-button" class="big-button">带走我的飞行海报 <svg aria-hidden="true"><use href="#arrow"/></svg></button><button id="replay-button" class="outline-button">再飞一次，挑战更高分</button>
+</dialog>
 <div class="sr-only" aria-live="polite" id="announce"></div>
-<script type="module" src="/src/main.ts"></script></body></html>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

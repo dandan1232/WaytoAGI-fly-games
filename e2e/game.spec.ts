@@ -111,7 +111,7 @@ test('normal mouse input can visit every stop, win, reveal, download poster and 
   const final=await snapshot(page);expect(final.status).toBe('won');expect(final.rescues).toBe(0);expect(final.cleanPct).toBeGreaterThan(5);expect(visited).toEqual(platforms.map(p=>p.id));
   await expect(page.getByRole('button',{name:'查看飞行成绩'})).toBeVisible();await page.waitForTimeout(2200);await page.screenshot({path:'work/victory-desktop.png'});
   await page.getByRole('button',{name:'查看飞行成绩'}).click();expect((await snapshot(page)).cleanPct).toEqual(final.cleanPct);
-  await expect(page.getByText('这次，真的上天了。')).toBeVisible();await page.screenshot({path:'work/results-desktop.png'});
+  await expect(page.getByRole('heading',{name:'登顶成功。'})).toBeVisible();await page.screenshot({path:'work/results-desktop.png'});
   const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'带走我的飞行海报'}).click();const download=await downloadPromise;await download.saveAs('work/flight-poster.png');expect(download.suggestedFilename()).toContain('.png');
   await page.getByRole('button',{name:'再飞一次，挑战更高分'}).click();const reset=await snapshot(page);expect(reset.mode).toBe('playing');expect(reset.cleanPct).toBe(0);expect(reset.player.water).toBe(100);expect(reset.rescues).toBe(0);
   expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('karcher-flight-best-v1')||'null'))).toBeTruthy();expect(errors).toEqual([]);

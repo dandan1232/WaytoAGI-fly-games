@@ -51,7 +51,7 @@ function start(){
 }
 function pause(showDialog=true){
   if(mode!=='playing')return;
-  $('pause-heading').textContent='悬停一下，喘口气。';
+  $('pause-heading').textContent='歇会儿，再飞。';
   mode='paused';controls.active=false;controls.clear();state.spraying=false;audio.spray(false);accumulator=0;
   if(showDialog&&!pauseDialog.open)pauseDialog.showModal();
 }

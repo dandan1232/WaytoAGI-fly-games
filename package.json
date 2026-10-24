@@ -12,6 +12,7 @@
     "build": "npm run check && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "test:e2e": "playwright test",
+    "test:ui": "playwright test interface.spec.ts",
     "test:production": "npm run build && node scripts/verify-production.mjs"
   },
   "devDependencies": {

@@ -4,7 +4,7 @@ import { BUILDING, platforms, obstacles, WORLD_HEIGHT, secretWindow } from './le
 
 type ViewMode = 'title' | 'playing' | 'paused' | 'victory';
 type Particle = { x:number; y:number; vx:number; vy:number; life:number; max:number; r:number };
-const INK = '#203c4b';
+const INK = '#1d2223';
 const YELLOW = '#ffda00';
 const hash = (n: number) => { const x = Math.sin(n * 12.9898 + 78.233) * 43758.5453; return x - Math.floor(x); };
 function rounded(c:CanvasRenderingContext2D,x:number,y:number,w:number,h:number,r:number,fill:string,stroke?:string,line=2){c.beginPath();c.roundRect(x,y,w,h,r);c.fillStyle=fill;c.fill();if(stroke){c.strokeStyle=stroke;c.lineWidth=line;c.stroke();}}
@@ -38,7 +38,12 @@ export class Renderer {
     const mobile=this.width<600;
     let zoom=mobile?Math.max(.48,this.width/780):Math.min(1.06,(this.width-190)/940);
     let cameraY=state.player.y-this.height*.08/zoom, centerX=this.width/2+(mobile?20:30);
-    if(mode==='title'){zoom=mobile?.65:Math.min(1.08,this.height/650);centerX=this.width*(mobile?.98:.72);cameraY=state.player.y-this.height*.24/zoom;}
+    if(mode==='title'){
+      const stacked=this.width<=800;
+      zoom=stacked?(this.height<620?.59:.66):Math.min(1.08,this.height/650);
+      centerX=this.width*(stacked?.76:.78);
+      cameraY=state.player.y-this.height*(stacked?.30:.22)/zoom;
+    }
     let reveal=0;
     if(mode==='victory'){
       const t=Math.min(1,(this.time-this.wonAt)/(this.reduced?.2:3.2)),ease=1-(1-t)**3;
@@ -50,22 +55,23 @@ export class Renderer {
     const follow=mode==='title'||mode==='victory'?1:1-Math.exp(-dt*8);
     this.scale+=(zoom-this.scale)*follow;this.cameraY+=(cameraY-this.cameraY)*follow;this.centerX=centerX;
     const c=this.c;c.setTransform(this.dpr,0,0,this.dpr,0,0);c.clearRect(0,0,this.width,this.height);
-    this.sky(c,state,mode);
+    this.sky(c,state);
     c.save();c.translate(this.centerX,this.height/2);c.scale(this.scale,this.scale);c.translate(-this.cameraX,-this.cameraY);
     const top=this.cameraY-this.height/2/this.scale-160,bottom=this.cameraY+this.height/2/this.scale+160;
     this.building(c,state,top,bottom,reveal);
-    this.effects(c,state,mode,dt);
-    this.player(c,state,mode);
+    if(mode==='title'){
+      // An ambient recoil pose previews the mechanic without changing the actual run.
+      const y=state.player.y-112+(this.reduced?0:Math.sin(this.time*1.7)*7);
+      const preview:GameState={...state,player:{...state.player,y,grounded:false},spraying:true,aim:{x:0,y:1},beamEnd:{x:state.player.x,y:y+205}};
+      this.effects(c,preview,'playing',dt);this.player(c,preview,mode);
+    }else{this.effects(c,state,mode,dt);this.player(c,state,mode);}
     if(mode==='playing'&&state.elapsed<9){
       c.save();c.setLineDash([4,5]);line(c,state.player.x,state.player.y+40,state.player.x,state.player.y+125,'#3d899f',2);c.setLineDash([]);path(c,[[state.player.x-8,state.player.y+113],[state.player.x+8,state.player.y+113],[state.player.x,state.player.y+127]],'#3d899f');text(c,'朝这里喷水',state.player.x+16,state.player.y+90,12,'#386b7c');c.restore();
     }
     c.restore();
-    if(mode==='title'){
-      const fade=c.createLinearGradient(0,0,this.width*(mobile?.72:.52),0);fade.addColorStop(0,'#d9eef3');fade.addColorStop(.6,'#d9eef3f0');fade.addColorStop(1,'#d9eef300');c.fillStyle=fade;c.fillRect(0,0,this.width,this.height);
-    }
   }
-  private sky(c:CanvasRenderingContext2D,state:GameState,mode:ViewMode){
-    const gradient=c.createLinearGradient(0,0,0,this.height);gradient.addColorStop(0,'#d9eef3');gradient.addColorStop(1,'#eef3e9');c.fillStyle=gradient;c.fillRect(0,0,this.width,this.height);
+  private sky(c:CanvasRenderingContext2D,state:GameState){
+    c.fillStyle='#e6eef0';c.fillRect(0,0,this.width,this.height);
     ellipse(c,this.width*.86,110,46,46,'#fff1a9');
     for(let i=0;i<8;i++){
       const parallax=(state.highest*.12)%450;const x=hash(i+7)*this.width,y=((hash(i+81)*this.height+parallax+this.time*(this.reduced?0:1.5))%(this.height+160))-80;
@@ -79,9 +85,6 @@ export class Renderer {
         if(layer)for(let r=0;r<5;r++)for(let col=0;col<3;col++)rounded(c,x+12+col*21,y+15+r*25,8,11,1,'#d9e8de');
       }
       c.fillStyle='#aec9b8';c.fillRect(0,ground+10,this.width,this.height-ground);c.fillStyle='#839f90';c.fillRect(0,ground+32,this.width,6);
-    }
-    if(mode!=='victory'){
-      c.save();c.globalAlpha=.14;for(let i=0;i<70;i++){const x=hash(i+66)*this.width,y=hash(i+33)*this.height;c.fillStyle=INK;c.fillRect(x,y,1,1);}c.restore();
     }
   }
   private building(c:CanvasRenderingContext2D,state:GameState,top:number,bottom:number,reveal:number){
@@ -225,7 +228,6 @@ export class Renderer {
       rounded(c,-15,-6,15,6,1,'#fff');line(c,-13,-1,-2,-1,YELLOW,1);
     }
     ellipse(c,-2,14,4,5,'#edbc8f',INK);c.restore();
-    if(mode==='title'){c.save();c.translate(p.x+55,p.y-80);c.rotate(-.07);rounded(c,-10,-25,137,40,8,'#fffdf3',INK,2);path(c,[[10,14],[3,27],[24,14]],'#fffdf3',INK,2);text(c,'我先飞一个？',58,0,14,INK,800,'center');c.restore();}
   }
   private effects(c:CanvasRenderingContext2D,s:GameState,mode:ViewMode,dt:number){
     if(s.spraying&&mode==='playing'){

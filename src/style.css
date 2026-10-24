@@ -1,35 +1,357 @@
-:root{font-family:"Segoe UI","Microsoft YaHei",sans-serif;color:#203c4b;background:#d9eef3;font-synthesis:none;--ink:#203c4b;--yellow:#ffda00;--paper:#fffdf3;--muted:#607d86;--line:#203c4b25;--mono:Consolas,monospace}*{box-sizing:border-box}body{margin:0}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;cursor:pointer;border:0;transition:transform .16s,background .16s,box-shadow .16s}button:hover{transform:translateY(-2px)}button:active{transform:translateY(1px)}button:focus-visible,a:focus-visible,canvas:focus-visible{outline:3px solid #137898;outline-offset:4px}a{color:inherit;text-decoration:none}svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.symbols{position:absolute;width:0;height:0;overflow:hidden}.topbar{height:78px;display:flex;align-items:center;gap:22px;padding:0 38px;background:var(--paper);border-bottom:2px solid var(--ink);position:relative;z-index:10}.brand{font-family:Arial,sans-serif;font-weight:950;font-size:27px;line-height:28px;letter-spacing:-1.4px}.brand i{display:block;height:5px;background:var(--yellow);margin-top:3px}.brand-line{height:30px;width:1px;background:var(--line)}.team-name{font-size:15px;font-weight:800;letter-spacing:1px}.team-name span{display:block;font-size:9px;font-family:var(--mono);margin-top:3px;letter-spacing:1.3px;font-weight:400}.top-actions{margin-left:auto;display:flex;align-items:center;gap:10px}.edition{font-size:11px;letter-spacing:1px;margin-right:18px;font-family:var(--mono)}.round-button{width:42px;height:42px;border:1.5px solid var(--ink);background:transparent;border-radius:50%;display:grid;place-items:center}.round-button:hover{background:var(--yellow)}.round-button svg{width:18px;height:18px}.stage{height:calc(100dvh - 114px);min-height:550px;position:relative;overflow:hidden;isolation:isolate}#world{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair;outline-offset:-4px}.title-screen{position:absolute;inset:0;pointer-events:none}.title-copy{position:absolute;top:clamp(30px,7vh,80px);left:7vw;pointer-events:auto;width:480px}.label{display:inline-flex;align-items:center;gap:8px;background:#fffdf3dd;border:1.5px solid var(--ink);border-radius:20px;padding:8px 13px;font-size:11px;font-weight:650}.live-dot{display:inline-block;width:6px;height:6px;background:#4d8c71;border-radius:50%;flex-shrink:0}h1{font-family:"Arial Black","Microsoft YaHei",sans-serif;font-weight:950;letter-spacing:-5px;line-height:1.21;font-size:clamp(55px,5.3vw,85px);margin:22px 0 20px;transform:rotate(-2deg);transform-origin:left center}.title-yellow{position:relative;display:inline-block;z-index:1;white-space:nowrap}.title-yellow:after{content:"";position:absolute;z-index:-1;background:var(--yellow);left:-9px;right:-12px;top:14px;bottom:0;transform:rotate(1deg);box-shadow:4px 5px 0 #203c4b}.title-yellow svg{position:absolute;right:-44px;top:-21px;width:54px;height:54px;stroke-width:2.5;transform:rotate(-4deg)}.tagline{font-size:24px;font-weight:800;line-height:1.6;margin:24px 0 13px;letter-spacing:-.5px}.intro-copy{font-size:13px;line-height:1.9;color:#4e7180;margin:0 0 27px}.big-button{background:var(--yellow);border:2px solid var(--ink);border-radius:8px;box-shadow:4px 5px 0 var(--ink);display:flex;align-items:center;justify-content:space-between;gap:45px;padding:17px 24px;min-height:55px;font-size:17px;font-weight:800}.big-button:hover{background:#ffe647;box-shadow:5px 7px 0 var(--ink)}.big-button svg{width:23px;height:23px}.start-meta{display:flex;align-items:center;gap:9px;font-size:10px;color:#557783;margin-top:20px}.start-meta i{width:3px;height:3px;border-radius:50%;background:#6d8c94}.best-label{font-size:11px;margin-top:16px;color:#376559}.flight-note{position:absolute;right:5vw;top:25px;transform:rotate(5deg);background:var(--paper);width:187px;border:2px solid var(--ink);box-shadow:5px 5px 0 #203c4b18;padding:17px;pointer-events:auto}.flight-note:before{content:"";width:54px;height:16px;background:#ffda00bb;position:absolute;top:-9px;left:calc(50% - 27px);transform:rotate(-5deg)}.flight-note>span{font-size:9px;letter-spacing:1.4px;font-family:var(--mono)}.flight-note strong{font-size:16px;display:block;margin-top:7px}.note-sketch{display:flex;align-items:center;justify-content:center;gap:8px;margin:18px 0 13px}.note-sketch>span{font-size:13px;font-weight:800}.note-sketch svg{width:22px;height:22px;color:#4b98ba;fill:#cae9f2}.flight-note small{font-size:10px;color:#607d86;line-height:1.8;display:block;text-align:center}.title-bottom{position:absolute;bottom:30px;left:7vw;display:flex;align-items:center;gap:17px}.stamp{font-family:var(--mono);font-weight:900;font-size:23px;border:2px solid var(--ink);border-radius:50%;width:82px;height:82px;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-13deg);background:#d9eef3}.stamp small{font-family:inherit;font-size:8px;font-weight:400;margin-top:4px}.title-bottom p{font-size:12px;line-height:1.8}.title-bottom>svg{margin-left:25px;width:31px;height:31px;transform:rotate(15deg)}.bottom-bar{min-height:36px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:7px 38px;background:var(--paper);border-top:1px solid var(--ink);font-size:9px;color:#5a7075;position:relative;z-index:9}.bottom-bar>span:first-child{font-weight:650;color:var(--ink);letter-spacing:.5px}.hud{position:absolute;left:30px;top:25px;width:176px;pointer-events:none}.mission-chip{font-size:10px;display:flex;align-items:center;gap:7px;background:var(--paper);border:1.5px solid var(--ink);border-radius:25px;padding:10px 13px;white-space:nowrap;margin-bottom:15px}.altitude-card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;box-shadow:4px 4px 0 #203c4b22;padding:17px}.altitude-card>span{font-size:11px;display:block}.altitude-card>span small{float:right;font-size:8px;color:var(--muted);margin-top:2px}.altitude-card>strong{font-family:var(--mono);display:block;margin:6px 0 13px;font-size:49px;font-weight:400;letter-spacing:-3px;line-height:1.1}.altitude-card>strong b{font-weight:600}.altitude-card>strong small{font-size:17px;letter-spacing:0;margin-left:3px}.height-track{background:#dce7e5;height:6px;border-radius:5px;overflow:hidden}.height-track>div{height:100%;width:0;background:#599787}.altitude-card p{font-size:9px;margin:10px 0 0;display:flex;gap:3px;align-items:center}.altitude-card p svg{width:12px;height:12px;margin-left:auto}.altitude-card p b{font-weight:600}.water-card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;box-shadow:4px 4px 0 #203c4b22;padding:13px 14px;margin-top:13px}.water-card>div:first-child{display:flex;align-items:center;justify-content:space-between;font-size:11px}.water-card>div:first-child>span{display:flex;align-items:center;gap:5px}.water-card svg{width:16px;height:16px;color:#478ea1;fill:#cae9f2}.water-card strong{font-size:13px;font-family:var(--mono)}.water-track{background:#d9e7e8;height:11px;margin:11px 0 8px;border:1px solid var(--ink);border-radius:4px;overflow:hidden}.water-track>div{width:100%;height:100%;background:#7bc3d2;transition:width .1s linear}.water-card small{font-size:9px;color:var(--muted);display:block}.water-card.low{background:#fff0db}.water-card.low .water-track>div{background:#e78c67}.water-card.low small{color:#9a482d}.water-card.refilling .water-track>div{background:var(--yellow)}.clean-card{display:flex;align-items:center;gap:8px;margin:17px 3px 18px;font-size:12px}.clean-card svg{width:17px;height:17px}.clean-card strong{font-family:var(--mono);margin-left:9px;font-size:17px}.resident-list>span{font-size:9px;color:#557783}.resident-list>div{display:flex;gap:7px;margin-top:8px}.resident-list b{width:32px;height:35px;border:1.5px dashed #59737b;background:#eaf3ed66;border-radius:7px;display:grid;place-items:center;font-size:14px;font-family:var(--mono);font-weight:400}.resident-list b.found{background:var(--yellow);border-style:solid;color:var(--ink)}.height-ruler{position:absolute;right:27px;top:26%;bottom:22%;display:flex;flex-direction:column;align-items:center;font-family:var(--mono);font-size:8px;letter-spacing:1.5px;color:#4c7382;pointer-events:none}.ruler-line{height:100%;width:10px;margin:13px 0;background:repeating-linear-gradient(to bottom,transparent 0 13px,#557f8d80 13px 14px);border-right:1px solid #557f8d80;position:relative}.ruler-line i{position:absolute;bottom:0;right:-6px;width:12px;height:12px;border:2px solid var(--ink);background:var(--yellow);border-radius:50%;transition:bottom .1s}.in-game-hint{position:absolute;bottom:72px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;background:#fffdf3f2;border:1.5px solid var(--ink);box-shadow:3px 4px 0 #203c4b22;border-radius:9px;padding:15px 18px;pointer-events:auto;width:max-content;max-width:90%}.hint-arrow{font-size:28px;font-weight:900;background:var(--yellow);border:1.5px solid var(--ink);border-radius:50%;width:39px;height:39px;display:grid;place-items:center;flex-shrink:0}.in-game-hint strong{font-size:13px;display:block;margin-bottom:5px}.in-game-hint div>span{font-size:10px;color:#607d86;display:block}.in-game-hint button{align-self:flex-start;background:none;font-size:19px;margin-left:14px;width:30px;height:30px}.desktop-controls{position:absolute;bottom:17px;left:30px;right:30px;display:flex;align-items:center;justify-content:space-between;font-size:10px;color:#3e6471}.desktop-controls>span{display:flex;align-items:center;gap:4px}.desktop-controls button{display:flex;align-items:center;gap:7px;background:var(--paper);border:1.5px solid var(--ink);border-radius:6px;padding:11px 13px;font-size:11px;min-height:44px}.desktop-controls button svg{width:15px;height:15px}kbd{font-family:var(--mono);padding:3px 5px;min-width:20px;background:#fffdf3c9;border:1px solid #70909b;border-radius:3px;text-align:center}.toast{position:absolute;top:27px;left:50%;transform:translateX(-50%);background:var(--paper);border:2px solid var(--ink);border-radius:8px;box-shadow:4px 4px 0 #203c4b22;padding:15px 22px;font-size:13px;font-weight:650;max-width:500px;pointer-events:none;z-index:6;line-height:1.6;text-align:center}.touch-controls{display:none}.reveal-caption{position:absolute;right:5vw;top:26%;width:330px;text-align:center}.reveal-caption>span{font-family:var(--mono);font-size:9px;letter-spacing:1px;line-height:1.8}.reveal-caption h2{font-size:32px;line-height:1.6;transform:rotate(-3deg);font-weight:950;letter-spacing:-1.5px}.reveal-caption p{font-size:10px;color:var(--muted);line-height:1.9}.reveal-caption .big-button{font-size:13px;margin:25px auto 0;gap:20px}.hidden{display:none!important}dialog{color:var(--ink);width:min(470px,calc(100vw - 30px));max-height:88dvh;overflow:auto;border:2px solid var(--ink);border-radius:14px;background:var(--paper);padding:34px 35px;box-shadow:8px 9px 0 #203c4b55}dialog::backdrop{background:#24465570;backdrop-filter:blur(5px)}.close-dialog{position:absolute;right:12px;top:12px;width:36px;height:36px;border-radius:50%;background:#e8eee6;font-size:25px}.dialog-label{font-family:var(--mono);font-size:10px;letter-spacing:1.3px;color:#607d86}dialog h2{font-size:29px;letter-spacing:-1px;margin:15px 0 18px}dialog p{font-size:13px;line-height:1.8;color:var(--muted)}.rule-demo{display:flex;gap:24px;align-items:center;justify-content:center;border:1.5px solid var(--ink);background:#fff2ad;padding:17px;border-radius:7px;font-size:19px;font-weight:750}dialog ol{padding-left:21px;margin:24px 0}dialog li{font-size:13px;padding-left:4px;margin:15px 0}dialog li p{font-size:11px;margin:6px 0 0}.dialog-small{font-size:10px!important;line-height:1.8;margin-top:17px}dialog .big-button{width:100%;font-size:13px;padding:14px 17px;gap:13px;margin-top:22px;min-height:49px}.outline-button{margin-top:14px;width:100%;min-height:45px;border:1.5px solid var(--ink);border-radius:7px;background:transparent;font-size:12px}.outline-button:hover{background:#e7eee8}#pause-dialog{text-align:center}.result-stars{display:flex;justify-content:center;gap:9px;margin:25px 0 16px}.result-stars svg{width:38px;height:38px;fill:var(--yellow);stroke:var(--ink)}.result-stars svg.empty{fill:#d8e1db;stroke:#80918d}#result-dialog{text-align:center}#result-dialog h2{font-size:27px;margin:12px 0}.result-subtitle{font-size:11px}.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:22px 0;border-block:1px solid var(--line);margin-top:21px}.result-grid span{display:block;font-size:10px;color:var(--muted);margin-bottom:8px}.result-grid strong{font-family:var(--mono);font-size:23px;font-weight:600}.sr-only{position:absolute;width:1px;height:1px;clip:rect(0,0,0,0);overflow:hidden;white-space:nowrap}
-@media(min-width:1550px){.title-copy{left:10vw}.title-bottom{left:10vw}.flight-note{right:9vw}}
-@media(max-height:760px) and (min-width:801px){.title-copy{top:27px}h1{font-size:60px;margin:15px 0}.tagline{font-size:20px;line-height:1.5;margin:19px 0 10px}.intro-copy{font-size:12px;margin-bottom:18px}.title-bottom{display:none}.start-meta{margin-top:14px}}
-@media(max-width:1050px){.title-copy{left:5vw;width:380px}h1{font-size:60px}.flight-note{right:3vw;top:24px;width:155px;padding:15px}.flight-note strong{font-size:14px}.flight-note small{font-size:9px}.title-bottom{left:5vw}.hud{left:20px;width:150px}.altitude-card{padding:13px}.altitude-card>strong{font-size:41px}.altitude-card>span small{display:none}.water-card{padding:11px}.resident-list b{width:28px}.reveal-caption{right:3vw;width:260px}.reveal-caption h2{font-size:27px}}
-@media(max-width:800px){.topbar{height:65px;padding:0 20px;gap:16px}.brand{font-size:24px;line-height:25px}.team-name{font-size:13px}.team-name span{font-size:8px}.edition{display:none}.stage{height:calc(100dvh - 101px);min-height:570px}.title-copy{left:6vw;top:35px;width:330px}h1{font-size:59px;letter-spacing:-3px}.title-yellow svg{right:-34px;top:-17px;width:42px;height:42px}.tagline{font-size:21px}.flight-note{display:none}.title-bottom{left:6vw;bottom:26px}.title-bottom .stamp{width:69px;height:69px;font-size:20px}.title-bottom>svg{display:none}.bottom-bar{padding:8px 20px;font-size:8px}.bottom-bar>span:first-child{display:none}.hud{left:14px;top:16px;width:128px}.mission-chip{font-size:9px;padding:8px 10px;margin-bottom:10px}.altitude-card{padding:11px;border-radius:8px}.altitude-card>span{font-size:9px}.altitude-card>strong{font-size:34px;margin:5px 0 9px}.altitude-card>strong small{font-size:13px}.altitude-card p{font-size:8px}.water-card{padding:10px;margin-top:9px;border-radius:8px}.water-card>div:first-child{font-size:10px}.water-card strong{font-size:11px}.water-card small{font-size:8px;line-height:1.5}.water-track{height:9px;margin:9px 0 6px}.clean-card{font-size:10px;gap:5px;margin:13px 0}.clean-card strong{font-size:14px;margin-left:4px}.resident-list>span{font-size:8px}.resident-list b{width:26px;height:29px;font-size:12px}.resident-list>div{gap:5px}.height-ruler{right:16px;font-size:7px}.reveal-caption{top:auto;bottom:29px;left:50%;transform:translateX(-50%);width:90%;background:#fffdf3eb;border:1.5px solid var(--ink);border-radius:9px;padding:17px}.reveal-caption h2{font-size:24px;margin:10px 0;transform:none}.reveal-caption>span{font-size:8px}.reveal-caption p{margin:7px 0;font-size:9px}.reveal-caption .big-button{margin-top:15px;padding:12px 18px;min-height:44px}.toast{top:16px;font-size:11px;padding:11px 14px;max-width:calc(100% - 180px);left:auto;right:16px;transform:none}.in-game-hint{bottom:76px;padding:11px 13px;gap:10px}.in-game-hint strong{font-size:11px}.in-game-hint div>span{font-size:9px}.desktop-controls{left:15px;right:15px}.desktop-controls>span{font-size:9px}.desktop-controls kbd{font-size:9px;padding:3px;min-width:17px}}
-@media(pointer:coarse){.touch-controls:not(.hidden){display:flex}.desktop-controls{display:none}.touch-controls{position:absolute;bottom:21px;left:20px;right:20px;align-items:flex-end;justify-content:space-between;pointer-events:none}.rescue-button{pointer-events:auto;display:flex;align-items:center;gap:7px;min-height:44px;padding:10px 12px;background:#fffdf3ee;border:1.5px solid var(--ink);border-radius:7px;font-size:10px}.rescue-button svg{width:15px;height:15px}.joystick-wrap{text-align:center;pointer-events:none}.joystick-wrap>span{font-size:8px;background:#fffdf3cc;padding:5px 7px;border-radius:10px}.joystick{pointer-events:auto;width:128px;height:128px;border-radius:50%;border:2px solid #203c4b8c;background:#fffdf38c;position:relative;margin:11px auto 0;touch-action:none;user-select:none;box-shadow:inset 0 0 0 13px #d2e6e840}.joystick>span{position:absolute;font-size:15px;color:#537987}.stick-up{left:calc(50% - 5px);top:7px}.stick-down{left:calc(50% - 5px);bottom:7px}.stick-left{left:10px;top:calc(50% - 10px)}.stick-right{right:10px;top:calc(50% - 10px)}.joystick-knob{width:52px;height:52px;background:var(--yellow);border:2px solid var(--ink);border-radius:50%;position:absolute;top:calc(50% - 26px);left:calc(50% - 26px);display:grid;place-items:center;box-shadow:2px 3px 0 #203c4b33}.joystick.engaged{background:#d4edf2b8}.joystick.engaged .joystick-knob{background:#8bd6e2}.joystick-knob svg{width:23px;height:23px}.in-game-hint{bottom:191px}.toast{max-width:calc(100% - 175px)}}
-@media(max-width:540px){.topbar{height:62px;padding:0 14px;gap:12px}.brand{font-size:22px;line-height:23px}.brand-line{height:27px}.team-name{font-size:12px;letter-spacing:.5px}.team-name span{font-size:7px;letter-spacing:.5px}.top-actions{gap:7px}.round-button{width:35px;height:35px;min-width:35px}.round-button svg{width:16px;height:16px}.stage{height:calc(100dvh - 95px);min-height:560px}.bottom-bar{height:33px;min-height:33px;padding:6px 14px;font-size:7px}.title-copy{top:29px;left:23px;width:260px}.label{font-size:9px;padding:7px 10px}h1{font-size:48px;line-height:1.25;margin:23px 0 23px;letter-spacing:-3px}.title-yellow:after{top:10px;left:-6px;right:-7px;box-shadow:3px 4px 0 var(--ink)}.title-yellow svg{width:32px;height:32px;right:-29px;top:-17px}.tagline{font-size:17px;line-height:1.6;margin:20px 0 12px}.intro-copy{font-size:11px;line-height:1.8;margin-bottom:23px;width:220px}.title-copy .big-button{font-size:14px;padding:14px 18px;gap:45px;min-height:49px}.start-meta{font-size:8px;gap:7px;margin-top:18px}.best-label{font-size:9px;max-width:220px}.title-bottom{left:23px;bottom:18px;gap:12px}.title-bottom .stamp{width:58px;height:58px;font-size:17px}.stamp small{font-size:6px}.title-bottom p{font-size:9px;line-height:1.7}.hud{left:12px;top:12px;width:110px}.mission-chip{font-size:8px;padding:7px 8px;gap:4px;margin-bottom:8px}.mission-chip .live-dot{width:5px;height:5px}.altitude-card{padding:10px;box-shadow:2px 3px 0 #203c4b22}.altitude-card>strong{font-size:30px}.altitude-card>span{font-size:8px}.altitude-card p{font-size:7px;white-space:nowrap}.altitude-card p svg{display:none}.water-card{padding:9px;box-shadow:2px 3px 0 #203c4b22}.water-card small{font-size:7px}.water-card>div:first-child{font-size:9px}.water-card svg{width:13px;height:13px}.water-track{margin:7px 0 5px}.clean-card{font-size:9px;margin:12px 0}.clean-card svg{width:14px;height:14px}.clean-card strong{font-size:13px}.resident-list b{width:23px;height:27px}.resident-list>div{gap:5px}.height-ruler{right:11px;top:18%;bottom:36%;font-size:6px}.in-game-hint{bottom:182px;padding:10px 12px;max-width:calc(100% - 24px);gap:8px}.hint-arrow{font-size:22px;width:32px;height:32px}.in-game-hint strong{font-size:10px}.in-game-hint div>span{font-size:8px;max-width:220px;line-height:1.6}.in-game-hint button{margin-left:0;width:23px;height:25px}.toast{top:12px;right:12px;font-size:10px;padding:9px 11px;max-width:calc(100% - 146px)}.touch-controls{left:15px;right:15px;bottom:17px}.joystick{width:118px;height:118px}.joystick-wrap>span{font-size:7px}.rescue-button{font-size:9px;padding:11px 10px}.reveal-caption h2{font-size:21px}.reveal-caption{bottom:18px;padding:16px}.reveal-caption>span{font-size:7px}.reveal-caption p{font-size:8px}dialog{padding:31px 24px}dialog h2{font-size:25px}.result-grid{gap:16px}.result-grid strong{font-size:21px}.dialog-label{font-size:9px}.rule-demo{font-size:17px}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+:root {
+  color-scheme: light;
+  font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-synthesis: none;
+  color: var(--ink);
+  background: var(--fog);
+  --ink: #1d2223;
+  --yellow: #ffda00;
+  --surface: #fff;
+  --fog: #e6eef0;
+  --muted: #566269;
+  --water: #2b778e;
+  --line: #cbd2d3;
+  --number: "Bahnschrift", "Arial Narrow", Consolas, sans-serif;
+  --header: 72px;
+  --footer: 28px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+button { font: inherit; color: inherit; cursor: pointer; border: 0; border-radius: 0; transition: background .16s, color .16s, opacity .16s; }
+button:active { opacity: .75; }
+button:disabled { cursor: wait; opacity: .6; }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--water); outline-offset: 4px; }
+a { color: inherit; text-decoration: none; }
+svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.symbols { position: absolute; width: 0; height: 0; overflow: hidden; }
+.hidden { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; clip: rect(0,0,0,0); overflow: hidden; white-space: nowrap; }
 
-/* Keep compact icons inside accessible touch targets. */
-.round-button{min-width:44px;min-height:44px}.close-dialog{width:44px;height:44px}.in-game-hint button{width:44px;min-width:44px;height:44px}.in-game-hint{align-items:center}@media(max-width:540px){.topbar{gap:10px}.brand-line{display:none}.team-name{font-size:11px;max-width:66px}.top-actions{gap:5px}.round-button{width:44px;height:44px}.round-button svg{width:17px;height:17px}.in-game-hint button{width:44px;height:44px;align-self:center}.in-game-hint div>span{max-width:210px}}
+/* A quiet utility bar. The scene and title do the talking. */
+.topbar { height: var(--header); display: flex; align-items: center; gap: 28px; padding: 0 40px; background: var(--surface); position: relative; z-index: 10; }
+.brand { font-family: Arial, sans-serif; font-weight: 950; font-size: 27px; line-height: 28px; letter-spacing: -1.4px; }
+.brand i { display: block; height: 5px; margin-top: 3px; background: var(--yellow); }
+.team-name { font-size: 14px; font-weight: 650; padding-left: 24px; border-left: 1px solid var(--line); }
+.top-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.edition { font-size: 12px; color: var(--muted); margin-right: 24px; }
+.round-button { width: 44px; height: 44px; min-width: 44px; display: grid; place-items: center; background: transparent; }
+.round-button:hover, .round-button[aria-pressed="true"] { background: var(--yellow); }
+.round-button svg { width: 21px; height: 21px; }
+.stage { height: calc(100dvh - var(--header) - var(--footer)); min-height: 550px; position: relative; isolation: isolate; overflow: hidden; }
+#world { display: block; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
+#world:focus-visible { outline: 2px solid var(--water); outline-offset: -3px; }
+.bottom-bar { height: var(--footer); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: var(--surface); color: var(--muted); font-size: 10px; }
+.bottom-bar > span:first-child { color: var(--ink); }
 
-/* Product identity comes from the supplied KHB AIR reference photographs. */
-.achievement-chip{margin-top:14px;padding:10px 7px;border:1px dashed #6d8c89;border-radius:6px;background:#fffdf3a1;font-size:10px;color:#506b71;text-align:center}
-.achievement-chip.earned{border:1.5px solid var(--ink);background:#fff1a6;color:var(--ink);font-weight:750}
-.achievement-banner{position:absolute;top:85px;left:50%;transform:translateX(-50%) rotate(-2deg);display:flex;gap:15px;align-items:center;width:345px;padding:19px 22px;background:var(--paper);border:2px solid var(--ink);box-shadow:6px 7px 0 #203c4b36;z-index:8;pointer-events:none;animation:achievement-arrive .32s ease-out}
-.achievement-medal{display:grid;place-items:center;background:var(--yellow);border:2px solid var(--ink);border-radius:50%;width:59px;height:59px;flex-shrink:0;font-size:32px;box-shadow:0 0 0 5px #ffda003b}
-.achievement-banner #achievement-heading{display:block;font-size:10px;letter-spacing:1.5px;color:#607d86}
-.achievement-banner strong{display:block;font-size:23px;letter-spacing:-.5px;margin-top:6px}.achievement-banner p{font-size:11px;margin:8px 0;color:#526c73}.achievement-banner small{font-size:9px;color:#5d806c}
-.result-achievement{padding:11px;border:1px dashed #b79f35;border-radius:6px;background:#fff1a6;font-size:12px!important;color:var(--ink)!important}
-@keyframes achievement-arrive{from{opacity:0;translate:0 -16px;scale:.95}to{opacity:1;translate:0 0;scale:1}}
-@media(max-width:540px){.achievement-chip{font-size:8px;line-height:1.7;padding:7px 3px;margin-top:10px}.achievement-banner{left:auto;right:13px;top:86px;transform:rotate(-2deg);width:min(228px,calc(100% - 40px));gap:10px;padding:14px}.achievement-medal{width:39px;height:39px;font-size:24px}.achievement-banner #achievement-heading{font-size:8px;letter-spacing:1px}.achievement-banner strong{font-size:17px}.achievement-banner p{font-size:9px;line-height:1.6}.achievement-banner small{font-size:8px}}
-.equipment-card{position:absolute;right:5vw;top:30px;width:280px;padding:19px 20px 14px;background:#fffdf3f5;border:2px solid var(--ink);box-shadow:6px 7px 0 #203c4b24;transform:rotate(3deg)}
-.equipment-card:before{content:"";position:absolute;left:calc(50% - 28px);top:-9px;width:56px;height:16px;background:#ffda00c9;transform:rotate(-6deg)}
-.equipment-eyebrow{font:8px var(--mono);letter-spacing:1px;display:block}
-.equipment-card img{display:block;width:100%;height:181px;object-fit:contain;margin:5px 0 3px;filter:drop-shadow(3px 5px 2px #203c4b18)}
-.equipment-copy strong{font:900 27px/1 Arial,sans-serif;letter-spacing:-1px;display:block;color:#171b1c}
-.equipment-copy>span{display:block;margin-top:6px;font-size:12px;font-weight:750}
-.equipment-copy small{display:block;font-size:10px;color:var(--muted);margin-top:8px;text-wrap:balance}
-.equipment-foot{display:block;border-top:1px solid var(--line);font-size:8px;letter-spacing:1px;margin-top:14px;padding-top:10px}
-@media(min-width:1550px){.equipment-card{right:9vw}}
-@media(max-width:1050px){.equipment-card{right:3vw;width:235px;padding:16px}.equipment-card img{height:150px}.equipment-copy strong{font-size:24px}}
-@media(max-width:800px){.equipment-card{top:auto;bottom:23px;left:6vw;right:auto;width:270px;height:148px;padding:15px;transform:rotate(-2deg)}.equipment-card img{position:absolute;right:1px;top:19px;width:155px;height:116px;margin:0}.equipment-eyebrow{font-size:7px;letter-spacing:.3px}.equipment-copy{position:relative;margin-top:22px;width:115px}.equipment-copy strong{font-size:22px}.equipment-copy>span{font-size:9px;margin-top:5px}.equipment-copy small{font-size:8px;max-width:92px;line-height:1.6}.equipment-foot{display:none}.title-bottom{display:none}}
-@media(max-width:540px){.equipment-card{left:23px;bottom:29px;width:250px;height:147px}.equipment-card img{width:143px;right:0;top:24px}.equipment-copy strong{font-size:21px}}
-@media(max-height:760px) and (max-width:800px){.equipment-card{height:102px;bottom:14px;padding:12px}.equipment-card img{width:132px;height:99px;top:0;right:4px}.equipment-copy{margin-top:10px}.equipment-copy small{display:none}.title-copy{top:22px}.title-copy h1{margin:17px 0;font-size:43px}.tagline{margin:17px 0 10px;font-size:16px}.intro-copy{margin-bottom:17px}.start-meta{margin-top:13px}.best-label{margin-top:9px}}
+/* A single yellow plane, cut in the direction of the jet. */
+.title-screen { position: absolute; inset: 0; pointer-events: none; }
+.title-screen::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 49%; background: var(--yellow); clip-path: polygon(0 0, 100% 0, 86% 100%, 0 100%); }
+.title-copy { position: absolute; top: clamp(42px, 8.5vh, 90px); left: 5.5vw; width: min(510px, 40vw); pointer-events: auto; }
+.title-kicker { display: block; font-size: 14px; font-weight: 650; margin: 0 0 25px; }
+h1 { margin: 0; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; font-weight: 900; letter-spacing: -.075em; line-height: 1.05; }
+.title-first { display: block; font-size: clamp(36px, 3.5vw, 55px); letter-spacing: -.045em; margin-bottom: 10px; }
+.title-last { display: block; font-size: clamp(64px, 6.5vw, 104px); white-space: nowrap; }
+.intro-copy { margin: 30px 0 28px; font-size: 17px; line-height: 1.8; }
+.big-button { display: flex; align-items: center; justify-content: space-between; gap: 30px; min-height: 60px; padding: 17px 24px; background: var(--ink); color: var(--surface); font-weight: 700; font-size: 17px; border: 1px solid var(--ink); }
+.big-button:hover { background: #3b4447; }
+.big-button svg { width: 25px; height: 25px; }
+.title-copy .big-button { width: 236px; }
+.start-meta { display: flex; flex-wrap: wrap; gap: 5px 16px; margin: 18px 0 0; color: #41452e; font-size: 12px; line-height: 1.6; }
+.touch-instruction { display: none; }
+.best-label { margin: 10px 0 0; font-size: 12px; color: #41452e; line-height: 1.6; }
+.best-label:empty { display: none; }
+.equipment-card { position: absolute; bottom: 26px; left: 5.5vw; display: flex; align-items: center; gap: 9px; width: 340px; }
+.equipment-card img { display: block; width: 165px; height: 124px; object-fit: contain; }
+.equipment-copy > span { display: block; color: #41452e; font-size: 11px; margin-bottom: 6px; }
+.equipment-copy strong { display: block; font-family: var(--number); font-size: 25px; letter-spacing: -.8px; font-weight: 750; line-height: 1; }
+.equipment-copy small { display: block; font-size: 12px; margin-top: 8px; }
+.scene-caption { position: absolute; right: 42px; bottom: 36px; display: flex; align-items: center; gap: 14px; font-size: 13px; padding: 12px 0; color: var(--ink); }
+.scene-caption strong { font-weight: 750; }
+.scene-direction { font: 28px var(--number); display: flex; align-items: center; gap: 12px; }
+.scene-direction i { height: 18px; width: 1px; background: var(--ink); }
+
+/* One instrument cluster instead of a stack of floating cards. */
+.hud { position: absolute; top: 24px; left: 24px; width: 176px; padding: 19px 18px 16px; background: var(--surface); border-top: 4px solid var(--yellow); pointer-events: none; }
+.mission-chip { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 650; margin-bottom: 20px; }
+.live-dot { width: 5px; height: 5px; background: var(--ink); display: inline-block; flex-shrink: 0; }
+.altitude-card > span { font-size: 12px; color: var(--muted); }
+.altitude-card > strong { display: flex; align-items: baseline; gap: 4px; font-family: var(--number); font-variant-numeric: tabular-nums; line-height: 1; margin: 9px 0 12px; }
+.altitude-card > strong b { font-size: 56px; letter-spacing: -2px; font-weight: 650; }
+.altitude-card > strong small { font-size: 15px; }
+.height-track { height: 3px; background: #e4e8e8; overflow: hidden; }
+.height-track > div { height: 100%; width: 0; background: var(--ink); }
+.altitude-card p { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 7px; margin: 9px 0 0; }
+.altitude-card p b { font-weight: 500; color: var(--ink); }
+.altitude-card p svg { width: 13px; height: 13px; margin-left: auto; }
+.water-card { border-top: 1px solid var(--line); padding-top: 16px; margin-top: 18px; }
+.water-card > div:first-child { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+.water-card > div:first-child > span { display: flex; align-items: center; gap: 5px; }
+.water-card svg { width: 15px; height: 15px; }
+.water-card strong, .clean-card strong { font-family: var(--number); font-variant-numeric: tabular-nums; font-size: 18px; font-weight: 650; }
+.water-track { height: 7px; margin: 10px 0 8px; overflow: hidden; background: #dce6e9; }
+.water-track > div { height: 100%; width: 100%; background: var(--water); transition: width .1s linear; }
+.water-card small { color: var(--muted); font-size: 10px; line-height: 1.6; display: block; }
+.water-card.low .water-track > div { background: #a2462e; }
+.water-card.low small { color: #98412b; }
+.water-card.refilling .water-track > div { background: var(--yellow); }
+.clean-card { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); padding: 16px 0; font-size: 12px; }
+.resident-list { margin-top: 16px; }
+.resident-list > span { font-size: 11px; color: var(--muted); }
+.resident-list > div { display: flex; gap: 6px; margin-top: 8px; }
+.resident-list b { display: grid; place-items: center; width: 30px; height: 30px; font-size: 12px; font-weight: 500; border: 1px solid var(--line); color: var(--muted); }
+.resident-list b.found { color: var(--ink); background: var(--yellow); border-color: var(--yellow); }
+.achievement-chip { font-size: 10px; color: var(--muted); line-height: 1.6; margin-top: 14px; }
+.achievement-chip.earned { font-weight: 650; color: var(--ink); }
+.height-ruler { position: absolute; right: 28px; top: 23%; bottom: 22%; display: flex; flex-direction: column; align-items: center; color: #34464d; font-size: 10px; pointer-events: none; }
+.ruler-line { flex: 1; width: 10px; margin: 10px 0; background: repeating-linear-gradient(to bottom,transparent 0 15px,#57707980 15px 16px); border-right: 1px solid #57707980; position: relative; }
+.ruler-line i { position: absolute; right: -4px; width: 7px; height: 12px; background: var(--ink); transition: bottom .1s; }
+
+.in-game-hint { position: absolute; left: 50%; bottom: 78px; transform: translateX(-50%); display: flex; gap: 14px; align-items: center; padding: 12px 14px 12px 18px; background: var(--surface); border-left: 4px solid var(--yellow); width: max-content; max-width: calc(100% - 48px); }
+.hint-arrow { font-size: 30px; line-height: 1; }
+.in-game-hint strong { display: block; font-size: 13px; margin-bottom: 5px; }
+.in-game-hint div > span { display: block; font-size: 11px; color: var(--muted); line-height: 1.5; }
+.in-game-hint button { width: 44px; min-width: 44px; height: 44px; margin-left: 7px; background: transparent; font-size: 24px; color: var(--muted); }
+.in-game-hint button:hover { background: var(--fog); }
+.desktop-controls { position: absolute; bottom: 20px; left: 24px; right: 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.desktop-controls > span { display: flex; align-items: center; gap: 5px; color: var(--ink); font-size: 11px; padding: 10px 0; }
+kbd { display: inline-grid; place-items: center; min-width: 22px; height: 23px; padding: 0 4px; background: #ffffffd9; font: 11px Consolas, monospace; }
+.desktop-controls button, .rescue-button { display: flex; align-items: center; gap: 8px; min-height: 46px; padding: 12px 15px; background: var(--ink); color: var(--surface); font-size: 12px; }
+.desktop-controls button:hover, .rescue-button:hover { background: #3b4447; }
+.desktop-controls button svg, .rescue-button svg { width: 17px; height: 17px; }
+.toast { position: absolute; left: 50%; top: 24px; transform: translateX(-50%); background: var(--ink); color: var(--surface); padding: 14px 20px; font-size: 13px; font-weight: 500; max-width: min(500px,calc(100% - 48px)); text-align: center; line-height: 1.6; pointer-events: none; z-index: 6; }
+.touch-controls { display: none; }
+.achievement-banner { position: absolute; left: 50%; top: 85px; transform: translateX(-50%); width: 340px; max-width: calc(100% - 32px); padding: 20px; display: flex; gap: 16px; align-items: center; color: var(--ink); background: var(--surface); border-top: 4px solid var(--yellow); pointer-events: none; z-index: 8; animation: achievement-arrive .25s ease-out; }
+.achievement-medal { display: grid; place-items: center; width: 48px; height: 56px; flex-shrink: 0; background: var(--yellow); clip-path: polygon(0 0,100% 0,100% 78%,50% 100%,0 78%); }
+.achievement-medal svg { width: 26px; height: 26px; fill: var(--ink); stroke-width: 1; }
+#achievement-heading { display: block; color: var(--muted); font-size: 11px; }
+.achievement-banner strong { display: block; font-size: 22px; margin-top: 5px; letter-spacing: -.5px; }
+.achievement-banner p { font-size: 12px; color: var(--muted); margin: 7px 0; }
+.achievement-banner small { display: block; font-size: 10px; color: var(--muted); line-height: 1.6; }
+@keyframes achievement-arrive { from { opacity: 0; translate: 0 -12px; } to { opacity: 1; translate: 0 0; } }
+
+/* Menus share one typography and button system. */
+dialog { color: var(--ink); background: var(--surface); width: min(480px,calc(100vw - 32px)); max-height: calc(100dvh - 48px); overflow: auto; border: 0; border-top: 6px solid var(--yellow); padding: 32px; }
+dialog::backdrop { background: #15212799; }
+.close-dialog { position: absolute; top: 9px; right: 9px; display: grid; place-items: center; width: 44px; height: 44px; font-size: 27px; background: transparent; color: var(--muted); }
+.close-dialog:hover { background: var(--fog); }
+.dialog-label { display: block; font-size: 12px; color: var(--muted); }
+dialog h2 { font-size: 27px; line-height: 1.5; letter-spacing: -.75px; margin: 18px 0; }
+dialog p { font-size: 14px; color: var(--muted); line-height: 1.8; }
+.rule-demo { display: flex; justify-content: space-around; gap: 24px; background: var(--yellow); padding: 20px; font-size: 23px; font-weight: 700; }
+dialog ol { padding-left: 22px; margin: 24px 0; }
+dialog li { padding-left: 6px; font-size: 14px; margin: 18px 0; }
+dialog li p { margin: 6px 0 0; font-size: 13px; }
+.dialog-small { font-size: 12px !important; line-height: 1.75; }
+dialog .big-button { width: 100%; min-height: 52px; padding: 14px 17px; margin-top: 24px; font-size: 14px; gap: 14px; }
+.outline-button { display: block; width: 100%; min-height: 48px; margin-top: 12px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); font-size: 13px; padding: 12px; }
+.outline-button:hover { background: var(--fog); }
+#pause-dialog { padding-top: 38px; }
+#pause-dialog h2 { font-size: 32px; }
+#result-dialog { text-align: center; }
+#result-dialog h2 { font-size: 32px; margin-bottom: 4px; }
+.result-subtitle { font-size: 12px; margin-top: 0; }
+.result-stars { display: flex; justify-content: center; gap: 8px; margin: 24px 0 10px; }
+.result-stars svg { width: 34px; height: 34px; fill: var(--yellow); stroke: var(--ink); stroke-width: 1.5; }
+.result-stars svg.empty { fill: #e4e8e8; stroke: #abb5b8; }
+.result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 20px; margin-top: 24px; padding: 24px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.result-grid span { display: block; font-size: 12px; color: var(--muted); margin-bottom: 7px; }
+.result-grid strong { font-family: var(--number); font-size: 27px; font-weight: 650; }
+.result-achievement { font-size: 12px !important; color: var(--ink) !important; background: var(--yellow); padding: 10px; }
+.reveal-caption { position: absolute; top: 27%; right: 5vw; width: 310px; padding: 26px; background: var(--surface); border-top: 5px solid var(--yellow); }
+.reveal-caption > span { font-size: 12px; color: var(--muted); }
+.reveal-caption h2 { font-size: 38px; margin: 17px 0; letter-spacing: -1.5px; }
+.reveal-caption p { font-size: 13px; line-height: 1.8; color: var(--muted); }
+.reveal-caption .big-button { font-size: 14px; min-height: 52px; padding: 14px 16px; margin-top: 24px; width: 100%; gap: 12px; }
+
+@media (min-width: 1600px) {
+  .title-copy, .equipment-card { left: 7vw; }
+  .title-copy { top: 10vh; }
+}
+@media (max-height: 760px) and (min-width: 801px) {
+  .title-copy { top: 30px; }
+  .title-kicker { margin-bottom: 18px; font-size: 12px; }
+  .title-first { font-size: 38px; margin-bottom: 7px; }
+  .title-last { font-size: 76px; }
+  .intro-copy { font-size: 15px; line-height: 1.7; margin: 20px 0; }
+  .title-copy .big-button { min-height: 52px; font-size: 15px; }
+  .start-meta { font-size: 11px; margin-top: 14px; }
+  .equipment-card { bottom: 12px; }
+  .equipment-card img { width: 125px; height: 94px; }
+  .equipment-copy strong { font-size: 21px; }
+}
+@media (max-width: 1100px) and (min-width: 801px) {
+  .title-copy { left: 4vw; width: 43vw; }
+  .title-screen::before { width: 53%; }
+  .title-last { font-size: 7.1vw; }
+  .intro-copy { font-size: 15px; }
+  .equipment-card { left: 4vw; }
+  .scene-caption { right: 25px; font-size: 12px; }
+  .hud { left: 18px; width: 160px; padding: 16px; }
+  .reveal-caption { right: 3vw; width: 280px; }
+}
+@media (max-width: 800px) {
+  :root { --header: 64px; --footer: 24px; }
+  .topbar { gap: 18px; padding: 0 20px; }
+  .brand { font-size: 24px; line-height: 25px; }
+  .team-name { font-size: 12px; padding-left: 18px; }
+  .edition { display: none; }
+  .bottom-bar { padding: 0 20px; font-size: 9px; }
+  .bottom-bar > span:first-child { display: none; }
+  .bottom-bar > span:last-child { margin-left: auto; }
+  .stage { min-height: 540px; }
+  .title-screen::before { width: 100%; height: 56%; clip-path: polygon(0 0,100% 0,100% 82%,0 100%); }
+  .title-copy { left: 32px; top: 29px; width: calc(100% - 64px); }
+  .title-kicker { font-size: 12px; margin-bottom: 15px; }
+  .title-first { font-size: 28px; margin-bottom: 7px; }
+  .title-last { font-size: clamp(55px,11vw,78px); }
+  .intro-copy { font-size: 14px; line-height: 1.65; margin: 18px 0; }
+  .title-copy .big-button { width: 205px; min-height: 52px; padding: 13px 19px; font-size: 15px; }
+  .start-meta { font-size: 11px; margin-top: 13px; gap: 4px 12px; }
+  .best-label { font-size: 11px; margin-top: 6px; }
+  .equipment-card { left: 25px; bottom: 18px; width: 245px; gap: 3px; padding-right: 10px; }
+  .equipment-card img { width: 115px; height: 86px; }
+  .equipment-copy > span { font-size: 9px; margin-bottom: 4px; }
+  .equipment-copy strong { font-size: 21px; }
+  .equipment-copy small { font-size: 10px; margin-top: 5px; }
+  .scene-caption { display: none; }
+  .scene-direction { font-size: 23px; gap: 8px; }
+  .reveal-caption { top: auto; right: auto; left: 50%; bottom: 22px; transform: translateX(-50%); width: min(370px,calc(100% - 40px)); padding: 20px; }
+  .reveal-caption h2 { font-size: 28px; margin: 10px 0; }
+  .reveal-caption p { font-size: 12px; }
+  .reveal-caption .big-button { margin-top: 15px; }
+  .height-ruler { right: 14px; top: 29%; bottom: 29%; font-size: 9px; }
+}
+@media (pointer: coarse) {
+  .mouse-instruction { display: none; }
+  .touch-instruction { display: inline; }
+  .desktop-controls { display: none; }
+  .touch-controls:not(.hidden) { display: flex; }
+  .touch-controls { position: absolute; left: 20px; right: 20px; bottom: max(20px,env(safe-area-inset-bottom)); display: none; align-items: flex-end; justify-content: space-between; pointer-events: none; }
+  .rescue-button { pointer-events: auto; min-width: 76px; justify-content: center; min-height: 48px; }
+  .joystick-wrap { text-align: center; }
+  .joystick-wrap > span { color: var(--ink); font-size: 11px; background: #ffffffd9; padding: 4px 9px; }
+  .joystick { width: 124px; height: 124px; border: 1.5px solid #1d222380; background: #ffffffb8; position: relative; margin-top: 12px; border-radius: 50%; touch-action: none; user-select: none; pointer-events: auto; }
+  .joystick > span { position: absolute; color: #3b555d; font-size: 15px; }
+  .stick-up { left: calc(50% - 5px); top: 5px; }
+  .stick-down { left: calc(50% - 5px); bottom: 5px; }
+  .stick-left { left: 9px; top: calc(50% - 11px); }
+  .stick-right { right: 9px; top: calc(50% - 11px); }
+  .joystick-knob { width: 50px; height: 50px; position: absolute; top: calc(50% - 25px); left: calc(50% - 25px); display: grid; place-items: center; background: var(--yellow); border: 1.5px solid var(--ink); border-radius: 50%; }
+  .joystick-knob svg { width: 21px; height: 21px; }
+  .joystick.engaged { background: #d8eaf0e6; }
+  .joystick.engaged .joystick-knob { background: #93c4d1; }
+  .in-game-hint { bottom: 190px; }
+}
+@media (max-width: 600px) {
+  .topbar { padding: 0 14px; gap: 12px; }
+  .brand { font-size: 23px; line-height: 24px; }
+  .team-name { display: none; }
+  .top-actions { gap: 8px; }
+  .round-button { width: 44px; height: 44px; }
+  .title-copy { left: 24px; top: 26px; width: calc(100% - 48px); }
+  .title-last { font-size: 15vw; }
+  .title-first { font-size: 27px; }
+  .title-kicker { font-size: 11px; margin-bottom: 16px; }
+  .intro-copy { font-size: 13px; margin: 18px 0; }
+  .title-copy .big-button { min-height: 50px; width: 192px; font-size: 14px; }
+  .start-meta { font-size: 10px; }
+  .equipment-card { left: 18px; bottom: 16px; width: 231px; }
+  .equipment-card img { width: 108px; height: 81px; }
+  .scene-caption { right: 20px; bottom: 113px; }
+  .bottom-bar { padding: 0 14px; font-size: 9px; }
+  /* Keep the middle of the facade clear, including the secret window. */
+  .hud { left: 12px; right: 12px; top: 12px; width: auto; display: grid; grid-template-columns: 72px minmax(100px,1fr) 74px; gap: 0 14px; padding: 11px 13px 10px; border-top-width: 3px; }
+  .mission-chip { grid-column: 1; font-size: 9px; margin: 0 0 7px; gap: 5px; white-space: nowrap; }
+  .altitude-card { grid-column: 1; grid-row: 2 / span 2; }
+  .altitude-card > span { display: none; }
+  .altitude-card > strong { margin: 0; gap: 3px; }
+  .altitude-card > strong b { font-size: 37px; letter-spacing: -1px; }
+  .altitude-card > strong small { font-size: 12px; }
+  .altitude-card p, .height-track { display: none; }
+  .water-card { grid-column: 2; grid-row: 1 / span 2; border: 0; margin: 0; padding: 0; }
+  .water-card > div:first-child { font-size: 10px; }
+  .water-card svg { width: 12px; height: 12px; }
+  .water-card strong { font-size: 17px; }
+  .water-track { height: 6px; margin: 8px 0 5px; }
+  .water-card small { font-size: 9px; line-height: 1.5; }
+  .clean-card { grid-column: 3; grid-row: 1 / span 2; display: block; padding: 0; border: 0; font-size: 10px; }
+  .clean-card strong { display: block; margin-top: 7px; font-size: 20px; }
+  .resident-list { grid-column: 2; grid-row: 3; margin-top: 8px; display: flex; align-items: center; gap: 6px; }
+  .resident-list > span { display: none; }
+  .resident-list > div { gap: 4px; margin: 0; }
+  .resident-list b { width: 18px; height: 19px; font-size: 9px; border: 0; background: #edf0f0; }
+  .achievement-chip { grid-column: 3; grid-row: 3; margin: 8px 0 0; font-size: 9px; white-space: nowrap; line-height: 1.9; }
+  .achievement-chip.earned { position: absolute; top: 100%; right: 0; padding: 7px 10px; background: var(--yellow); font-size: 10px; margin-top: 5px; }
+  .height-ruler { top: 25%; bottom: 31%; right: 13px; font-size: 8px; }
+  .in-game-hint { max-width: calc(100% - 24px); padding: 9px 6px 9px 12px; gap: 10px; }
+  .hint-arrow { font-size: 25px; }
+  .in-game-hint strong { font-size: 11px; }
+  .in-game-hint div > span { font-size: 10px; max-width: 230px; }
+  .in-game-hint button { margin-left: 0; }
+  .desktop-controls { left: 14px; right: 14px; bottom: 14px; }
+  .desktop-controls > span { font-size: 9px; gap: 2px; }
+  .desktop-controls kbd { min-width: 16px; padding: 0 2px; font-size: 9px; }
+  .desktop-controls button { font-size: 10px; padding: 10px; }
+  .toast { top: 135px; width: max-content; max-width: calc(100% - 30px); font-size: 12px; padding: 11px 15px; }
+  .achievement-banner { top: 190px; width: 302px; padding: 17px; gap: 14px; }
+  .achievement-banner strong { font-size: 21px; }
+  .achievement-banner p { font-size: 11px; }
+  .touch-controls { left: 16px; right: 16px; bottom: max(18px,env(safe-area-inset-bottom)); }
+  .joystick { width: 116px; height: 116px; }
+  dialog { padding: 27px 24px; }
+  dialog h2 { font-size: 23px; }
+  #pause-dialog h2, #result-dialog h2 { font-size: 28px; }
+}
+@media (max-width: 374px) {
+  .hud { padding-inline: 10px; grid-template-columns: 60px minmax(94px,1fr) 60px; gap: 0 9px; }
+  .mission-chip { font-size: 8px; }
+  .clean-card strong { font-size: 18px; }
+  .achievement-chip { font-size: 8px; }
+}
+@media (max-height: 740px) and (max-width: 800px) {
+  .title-copy { top: 20px; }
+  .title-kicker { margin-bottom: 13px; }
+  .title-first { font-size: 22px; margin-bottom: 6px; }
+  .title-last { font-size: clamp(48px,13vw,65px); }
+  .intro-copy { font-size: 12px; line-height: 1.6; margin: 14px 0; }
+  .title-copy .big-button { min-height: 46px; padding: 11px 17px; }
+  .start-meta { margin-top: 10px; font-size: 9px; gap: 3px 10px; }
+  .best-label { font-size: 9px; }
+  .title-screen::before { height: 59%; }
+  .equipment-card { bottom: 12px; }
+  .equipment-card img { width: 90px; height: 68px; }
+  .equipment-copy strong { font-size: 18px; }
+  .equipment-card { width: 207px; }
+  .scene-caption { bottom: 90px; font-size: 10px; }
+}
+@media (max-height: 500px) and (min-width: 501px) {
+  :root { --header: 54px; --footer: 22px; }
+  .stage { min-height: 240px; }
+  .title-screen::before { width: 56%; height: 100%; clip-path: polygon(0 0,100% 0,90% 100%,0 100%); }
+  .title-copy { top: 20px; left: 4vw; width: 44vw; }
+  .title-kicker, .intro-copy, .best-label { display: none; }
+  .title-first { font-size: 22px; margin-bottom: 4px; }
+  .title-last { font-size: 45px; }
+  .title-copy .big-button { min-height: 46px; margin-top: 18px; }
+  .start-meta { font-size: 10px; }
+  .equipment-card { left: 4vw; width: 230px; bottom: 5px; }
+  .equipment-card img { width: 88px; height: 66px; }
+  .equipment-copy strong { font-size: 18px; }
+  .equipment-copy > span { display: none; }
+  .scene-caption { display: none; }
+  .hud { top: 12px; left: 12px; padding: 12px; width: 140px; }
+  .mission-chip { font-size: 10px; margin-bottom: 10px; }
+  .altitude-card > strong b { font-size: 35px; }
+  .altitude-card p, .height-track, .water-card small, .resident-list, .achievement-chip { display: none; }
+  .water-card { padding-top: 9px; margin-top: 10px; }
+  .clean-card { padding: 10px 0 0; border: 0; }
+  .in-game-hint { bottom: 15px; left: 260px; transform: none; max-width: calc(100% - 410px); }
+  .touch-controls { left: 170px; right: 16px; bottom: 15px; }
+  .joystick { width: 100px; height: 100px; }
+  .toast { top: 12px; left: auto; right: 12px; transform: none; }
+  .achievement-banner { top: 68px; left: 58%; width: 300px; padding: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

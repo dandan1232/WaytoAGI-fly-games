@@ -32,6 +32,7 @@ npm test
 npm run check
 npm run build
 npm run test:e2e
+npm run test:ui
 npm run test:production
 ```
 
@@ -42,5 +43,6 @@ npm run test:production
 - [验证记录](docs/verification.md)
 - [Vercel 部署](docs/deployment.md)
 - [KHB AIR 素材来源与生成提示](docs/visual-assets.md)
+- [界面设计方向](docs/ui-direction.md)
 
 当前版本为一栋完整可通关楼宇，含 7 个补水点、6 个空调障碍、6 个泥团、4 位住户和登顶画作。首轮游玩时间取决于操作熟练度与探索程度；自动控制路线的测试耗时不代表普通玩家通关时间。
