@@ -45,3 +45,9 @@ CLI 的会话配置存放在忽略目录 `work/vercel-cli`，不在命令参数�
 2026-10-25 01:06（Asia/Shanghai）生产验收通过。游戏版本源提交 `6917ed9d117a8646d0293adf53464c9be9ed6265`，部署 `dpl_4gbign8x13dTybfQXufrZSf8xfFs` READY；不变部署地址 <https://waytoagi-fly-games-38t41frj3-dandan1232s-projects.vercel.app>，主域名保持不变。
 
 匿名生产检查确认：新首屏与产品素材已加载；线上 JS、CSS、PNG 与本地构建哈希一致；桌面喷水、暂停、救援、重玩、真实鼠标彩蛋解锁及刷新收藏通过；390px 触摸和平板开局通过。无开发观测接口、无页面脚本错误、无失败请求。后续仅发布记录提交不改变游戏资源。
+
+## R4 空水落空调失败
+
+2026-10-25 01:48（Asia/Shanghai）生产验收通过，源提交 `16f8348d0099306d2d0fa088dc51f30a5f665ecf`，部署 `dpl_FMgkmYhFJukEqNo3Z5znn4fF7LEs` READY。不变部署地址 <https://waytoagi-fly-games-1fdqrxyzr-dandan1232s-projects.vercel.app>；主域名保持不变。
+
+匿名脚本确认线上资源与本地构建一致；触摸正常操作造成空水落空调失败、显示失败提示、未写入最佳通关成绩、点重新起飞后水量与洁净度复位。该条路线使用浏览器时钟控制帧调度，未读取或写入游戏状态；真实时间的桌面与手机路径由本地浏览器回归另行覆盖。桌面、手机、平板和彩蛋收藏均通过，无页面错误、无失败请求。后续仅补充发布记录的提交不改变游戏资源。

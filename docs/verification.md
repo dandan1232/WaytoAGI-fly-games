@@ -79,3 +79,5 @@
 已有彩蛋、收藏、暂停、救援、六种尺寸界面及完整通关均通过；完整鼠标通关 32.7 秒、18.7% 实际洁净度、0 救援。失败提示在桌面与手机截图 `work/failure-desktop.png`、`work/failure-mobile.png` 经目视复核。生产脚本同步增加真实触摸失败及重试验证，发布后追加线上证据。
 
 生产构建本地预览检查全部通过，含无开发接口时的触摸失败和重试。初版固定墙钟时间的验证路线受浏览器调度影响未落到外机；将该条生产验证改用 Playwright 浏览器时钟逐帧推进，仍只发出正常触摸事件，不读取或写入游戏状态，不修改规则。真实时间下的桌面与触摸路径另由上述浏览器用例覆盖。脚本报告明确标记 `controlledBrowserClock`。
+
+生产证据：2026-10-25 01:48，部署 `dpl_FMgkmYhFJukEqNo3Z5znn4fF7LEs` READY，源提交 `16f8348d0099306d2d0fa088dc51f30a5f665ecf`。匿名主域名 HTTP 200，JS/CSS/PNG 哈希均匹配本地构建；触摸失败、重试、失败不记最佳成绩及桌面/手机/平板/彩蛋收藏通过，无开发观测接口、无页面脚本错误、无失败请求。报告 `work/production-verification.json`，截图 `work/production-failure-mobile.png`。
