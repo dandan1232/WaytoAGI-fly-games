@@ -1,0 +1,25 @@
+WaytoAGI Fly Games — Asset and Trademark Notice
+
+The project's original source code and documentation are distributed under
+the MIT License in LICENSE.
+
+KÄRCHER / Kärcher names, logos, trademarks and product designs belong to
+their respective rights holders. The MIT License does not grant rights to
+these third-party marks or designs.
+
+src/assets/khb-air.png is a generated illustration based on product reference
+images supplied for this project. The product illustration and its embedded
+brand marks are not included in the project's MIT grant. Source reference
+images in the local images/ directory are not distributed with the repository.
+
+docs/screenshots/ contains actual captures of this game, including third-party
+brand and product depictions. Their inclusion for project documentation does
+not relicense the underlying trademarks or product designs.
+
+This project is an independent creative game inspired by a brand brief and
+does not claim official endorsement. Recoil flight is a fantasy game mechanic,
+not a statement about the capabilities of a real cleaning device.
+
+Third-party software dependencies retain their own licenses.
+
+MIT reference text: https://opensource.org/license/mit

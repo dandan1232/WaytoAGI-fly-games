@@ -81,3 +81,9 @@
 生产构建本地预览检查全部通过，含无开发接口时的触摸失败和重试。初版固定墙钟时间的验证路线受浏览器调度影响未落到外机；将该条生产验证改用 Playwright 浏览器时钟逐帧推进，仍只发出正常触摸事件，不读取或写入游戏状态，不修改规则。真实时间下的桌面与触摸路径另由上述浏览器用例覆盖。脚本报告明确标记 `controlledBrowserClock`。
 
 生产证据：2026-10-25 01:48，部署 `dpl_FMgkmYhFJukEqNo3Z5znn4fF7LEs` READY，源提交 `16f8348d0099306d2d0fa088dc51f30a5f665ecf`。匿名主域名 HTTP 200，JS/CSS/PNG 哈希均匹配本地构建；触摸失败、重试、失败不记最佳成绩及桌面/手机/平板/彩蛋收藏通过，无开发观测接口、无页面脚本错误、无失败请求。报告 `work/production-verification.json`，截图 `work/production-failure-mobile.png`。
+
+## R5 — README、截图与许可
+
+2026-10-25：重排 README 的试玩入口、功能介绍、操作、评级、开发命令与项目文档；加入四张实际浏览器截图，目录 `docs/screenshots/` 共约 526 KiB，继续由 `.vercelignore` 排除游戏部署包。首屏和斜向喷水图重新截取线上版本，彩蛋与手机失败图来自同版生产验收记录。
+
+核验：4 项本地图片、15 项本地文件链接存在；5 个远程徽章和全部截图在 Markdown 本地预览中加载成功，折叠预览可展开。README 使用 GFM 与 GitHub 原生 Mermaid 语法，版式经本地预览截图复核；该预览不代表已取得 GitHub 页面渲染结果。正式 `LICENSE` 使用 MIT 标准文本，`NOTICE` 明确第三方品牌、产品形象和素材范围；`package.json` 与锁文件根包均标记 MIT，JSON 解析和 `git diff --check` 通过。
