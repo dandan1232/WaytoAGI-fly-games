@@ -10,7 +10,7 @@ import { loadBest, saveBest, loadSecretAchievement, saveSecretAchievement } from
 const $ = <T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
 const canvas=$<HTMLCanvasElement>('world');
 let state=createGame();
-let mode:'title'|'playing'|'paused'|'victory'='title';
+let mode:'title'|'playing'|'paused'|'victory'|'failed'='title';
 const renderer=new Renderer(canvas);
 const controls=new Controls(canvas,$('joystick'),(x,y)=>renderer.screenToWorld(x,y));
 const audio=new GameAudio();
@@ -19,6 +19,7 @@ let hintDismissed=false, milestone=0;
 let resumeAfterHelp=false;
 let secretCollected=loadSecretAchievement(), achievementTimer=0;
 const help=$<HTMLDialogElement>('help-dialog'),pauseDialog=$<HTMLDialogElement>('pause-dialog'),results=$<HTMLDialogElement>('result-dialog');
+const failure=$<HTMLDialogElement>('failure-dialog');
 const fmt=(seconds:number)=>`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(Math.floor(seconds%60)).padStart(2,'0')}`;
 const setHidden=(id:string,hidden:boolean)=>$(id).classList.toggle('hidden',hidden);
 const best=loadBest();
@@ -42,7 +43,7 @@ function discoverSecret(){
 }
 function start(){
   clearTimeout(showResultTimer);clearTimeout(toastTimer);clearTimeout(achievementTimer);setHidden('achievement-banner',true);
-  [help,pauseDialog,results].forEach(d=>{if(d.open)d.close();});
+  [help,pauseDialog,results,failure].forEach(d=>{if(d.open)d.close();});
   state=createGame();mode='playing';controls.clear();controls.active=true;renderer.reset();accumulator=0;last=performance.now();milestone=0;hintDismissed=false;
   ['title-screen','reveal-caption','toast'].forEach(id=>setHidden(id,true));
   ['hud','pause-button','height-ruler','desktop-controls','touch-controls','in-game-hint'].forEach(id=>setHidden(id,false));
@@ -75,8 +76,19 @@ function finish(){
   showResultTimer=window.setTimeout(()=>setHidden('reveal-caption',false),matchMedia('(prefers-reduced-motion: reduce)').matches?400:4000);
   announce(`登顶成功，获得 ${stars} 星。实际洁净度 ${state.cleanPct.toFixed(1)}%。`);
 }
+function fail(){
+  if(mode!=='playing')return;
+  mode='failed';controls.active=false;controls.clear();accumulator=0;audio.spray(false);audio.chime('fail');
+  clearTimeout(toastTimer);clearTimeout(achievementTimer);
+  ['hud','height-ruler','pause-button','in-game-hint','touch-controls','desktop-controls','toast','achievement-banner'].forEach(id=>setHidden(id,true));
+  $('failure-height').textContent=`${getHeightMeters(state)} m`;
+  $('failure-clean').textContent=`${state.cleanPct.toFixed(1)}%`;
+  updateHud();failure.showModal();
+  announce('飞行失败。水箱空了，落在空调外机上。重新起飞可再试一次。');
+}
 function handle(events:GameEvent[]){
   for(const event of events){
+    if(event.type==='fail'){fail();continue;}
     if(event.type==='achievement'){discoverSecret();continue;}
     if(event.type==='win'){finish();continue;}
     if(event.message)toast(event.message,event.type==='resident'?5500:2500);
@@ -103,6 +115,8 @@ function updateHud(){
 $('start-button').addEventListener('click',start);
 $('pause-button').addEventListener('click',()=>pause());$('resume-button').addEventListener('click',resume);
 $('restart-button').addEventListener('click',start);$('replay-button').addEventListener('click',start);
+$('retry-button').addEventListener('click',start);
+failure.addEventListener('cancel',e=>e.preventDefault());
 $('rescue-button').addEventListener('click',manualRescue);$('rescue-touch').addEventListener('click',manualRescue);
 $('dismiss-hint').addEventListener('click',()=>{hintDismissed=true;setHidden('in-game-hint',true);});
 $('help-button').addEventListener('click',()=>{resumeAfterHelp=mode==='playing';if(resumeAfterHelp)pause(false);help.showModal();});
@@ -126,7 +140,10 @@ window.addEventListener('keydown',e=>{
     if(help.open||results.open)return;
     e.preventDefault();if(mode==='playing')pause();else if(mode==='paused')resume();
   }
-  if(e.key.toLowerCase()==='r'&&mode==='playing'){pause();$('pause-heading').textContent='要从头再飞一次吗？';}
+  if(e.key.toLowerCase()==='r'){
+    if(mode==='failed'){e.preventDefault();start();}
+    else if(mode==='playing'){pause();$('pause-heading').textContent='要从头再飞一次吗？';}
+  }
 });
 window.addEventListener('blur',()=>{if(mode==='playing')pause();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});

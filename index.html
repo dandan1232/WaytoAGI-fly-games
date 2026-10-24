@@ -72,10 +72,16 @@
   <button class="close-dialog" aria-label="关闭说明">×</button><span class="dialog-label">怎么玩</span><h2>水往哪喷，人就反着飞。</h2>
   <div class="rule-demo"><span>水流 ↓</span><span>人 ↑</span></div>
   <ol><li><strong>朝脚下喷水，起飞</strong><p>鼠标指向水流方向，按住左键喷水。斜着喷可以横移。键盘用方向键选方向，空格喷水。</p></li><li><strong>松手落脚，补水</strong><p>黄色平台自动补水，也是救援检查点。水用完了，点击「回到补水点」继续。</p></li><li><strong>洗亮窗户，发现秘密</strong><p>喷水洗掉污渍，特殊窗后藏着住户和彩蛋。落在楼顶即通关。</p></li></ol>
-  <p class="dialog-small">手机拖动右下摇杆指定水流方向，松手停喷。P / Esc 暂停，M 切换音效。通关得一星；洗净 35%、发现 3 位住户，各加一星。</p>
+  <p class="dialog-small">手机拖动右下摇杆指定水流方向，松手停喷。P / Esc 暂停，M 切换音效。水用尽后落在空调外机上，本次飞行结束；黄色平台仍可补水。通关得一星；洗净 35%、发现 3 位住户，各加一星。</p>
   <button class="big-button close-help">知道了，天台见 <svg aria-hidden="true"><use href="#arrow"/></svg></button>
 </dialog>
 <dialog id="pause-dialog"><span class="dialog-label">已暂停</span><h2 id="pause-heading">歇会儿，再飞。</h2><p>计时和水量已暂停。</p><button id="resume-button" class="big-button">继续起飞 <svg aria-hidden="true"><use href="#arrow"/></svg></button><button id="restart-button" class="outline-button">从头再飞一次</button></dialog>
+<dialog id="failure-dialog" aria-labelledby="failure-heading" aria-describedby="failure-reason">
+  <span class="dialog-label">飞行失败</span><h2 id="failure-heading">水箱空了。</h2>
+  <p id="failure-reason">你落在了空调外机上，这里不能补水。下次记得留点水，飞到黄色平台落脚。</p>
+  <div class="failure-stats"><div><span>最高到达</span><strong id="failure-height"></strong></div><div><span>本次洗亮</span><strong id="failure-clean"></strong></div></div>
+  <button id="retry-button" class="big-button" autofocus>重新起飞 <svg aria-hidden="true"><use href="#retry"/></svg></button><p class="dialog-small">也可以按 R 重试</p>
+</dialog>
 <dialog id="result-dialog">
   <button class="close-dialog" aria-label="回到全楼画作">×</button><span class="dialog-label">飞行成绩</span><div id="result-stars" class="result-stars"></div><h2>登顶成功。</h2><p class="result-subtitle">这次的飞行记录</p>
   <div class="result-grid"><div><span>到达高度</span><strong id="result-height"></strong></div><div><span>实际洁净度</span><strong id="result-clean"></strong></div><div><span>发现住户</span><strong id="result-residents"></strong></div><div><span>飞行用时</span><strong id="result-time"></strong></div></div>

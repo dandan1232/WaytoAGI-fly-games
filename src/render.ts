@@ -2,7 +2,7 @@ import type { GameState, Resident } from './core.ts';
 import { getHeightMeters, getResidentCount, scoreStars } from './core.ts';
 import { BUILDING, platforms, obstacles, WORLD_HEIGHT, secretWindow } from './level.ts';
 
-type ViewMode = 'title' | 'playing' | 'paused' | 'victory';
+type ViewMode = 'title' | 'playing' | 'paused' | 'victory' | 'failed';
 type Particle = { x:number; y:number; vx:number; vy:number; life:number; max:number; r:number };
 const INK = '#1d2223';
 const YELLOW = '#ffda00';

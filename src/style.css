@@ -148,6 +148,10 @@ dialog .big-button { width: 100%; min-height: 52px; padding: 14px 17px; margin-t
 .outline-button:hover { background: var(--fog); }
 #pause-dialog { padding-top: 38px; }
 #pause-dialog h2 { font-size: 32px; }
+#failure-dialog h2 { font-size: 32px; }
+.failure-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; border-block: 1px solid var(--line); padding: 20px 0; margin: 24px 0; }
+.failure-stats span { display: block; font-size: 12px; color: var(--muted); margin-bottom: 7px; }
+.failure-stats strong { font: 650 27px var(--number); }
 #result-dialog { text-align: center; }
 #result-dialog h2 { font-size: 32px; margin-bottom: 4px; }
 .result-subtitle { font-size: 12px; margin-top: 0; }

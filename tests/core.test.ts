@@ -96,6 +96,32 @@ test('air conditioners block sides, undersides, and downward landing without ove
   assert.equal(above.player.y + above.player.h / 2, box.y);
 });
 
+test('an empty tank on an AC ends the run once and locks physics, score and rescue',()=>{
+  const s=createGame(),box=obstacles[0];
+  s.player.x=box.x+box.w/2;s.player.y=box.y-s.player.h/2-2;s.player.vy=120;s.player.water=0;
+  const events=run(s,idle,.1);
+  assert.equal(s.status,'lost');assert.equal(s.player.y+s.player.h/2,box.y);assert.equal(s.player.water,0);
+  assert.equal(s.spraying,false);assert.equal(s.refilling,false);assert.equal(s.player.vx,0);assert.equal(s.player.vy,0);
+  assert.equal(events.filter(e=>e.type==='fail'&&e.id===box.id).length,1);assert.equal(scoreStars(s),0);
+  const frozen=structuredClone(s);run(s,{dx:0,dy:1,spraying:true},1);rescue(s);assert.deepEqual(s,frozen);
+});
+
+test('an AC becomes fatal when the last usable water is spent while standing on it',()=>{
+  const s=createGame(),box=obstacles[0];
+  s.player.x=box.x+box.w/2;s.player.y=box.y-s.player.h/2;s.player.grounded=true;s.player.water=.1;
+  const events=stepGame(s,{dx:0,dy:-1,spraying:true},FIXED_DT);
+  assert.equal(s.status,'lost');assert.equal(s.player.water,0);assert.equal(events.filter(e=>e.type==='fail').length,1);
+});
+
+test('remaining water, yellow refill platforms, midair and AC side contact are not fatal',()=>{
+  const box=obstacles[0],wet=createGame();wet.player.x=box.x+box.w/2;wet.player.y=box.y-wet.player.h/2-2;wet.player.water=1;
+  run(wet,idle,.1);assert.equal(wet.status,'playing');assert.equal(wet.player.grounded,true);assert.equal(wet.player.water,1);
+  const refill=createGame();refill.player.water=0;run(refill,idle,.1);assert.equal(refill.status,'playing');assert.ok(refill.player.water>0);
+  const air=createGame();air.player.x=80;air.player.y=2300;air.player.water=0;run(air,idle,.2);assert.equal(air.status,'playing');assert.equal(air.player.grounded,false);
+  const side=createGame();side.player.x=box.x-30;side.player.y=box.y+box.h/2;side.player.vx=330;side.player.water=0;
+  stepGame(side,idle,.05);assert.equal(side.status,'playing');assert.ok(side.player.x+side.player.w/2<=box.x+.01);
+});
+
 test('a real spray removes local dirt only; AC boxes stop the beam', () => {
   const s = createGame();
   s.player.x = 260;

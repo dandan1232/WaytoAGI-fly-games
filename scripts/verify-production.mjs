@@ -50,8 +50,24 @@ try{
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:b.x+b.width/2-30,y:b.y+b.height/2+39}]});await phone.waitForTimeout(1300);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   await phone.getByRole('button',{name:'暂停游戏'}).tap();const mobileHeight=Number(await phone.locator('#height').textContent());assert.ok(mobileHeight>5);
   await phone.getByRole('button',{name:'继续起飞'}).tap();await phone.locator('#rescue-touch').tap();await phone.waitForTimeout(500);await phone.screenshot({path:'work/production-mobile.png'});
+  // The production bundle has no state observations. Control the browser clock, not game state,
+  // so this narrow two-turn touch route does not depend on the test machine's frame scheduling.
+  const lossContext=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true}),lossPage=await lossContext.newPage();
+  lossPage.on('pageerror',e=>errors.push(e.message));lossPage.on('requestfailed',r=>failures.push(r.url()));
+  await lossPage.clock.install({time:new Date('2026-01-01T00:00:00Z')});await lossPage.goto(url,{waitUntil:'networkidle'});
+  await lossPage.clock.pauseAt(await lossPage.evaluate(()=>Date.now()+1000));
+  assert.equal(await lossPage.evaluate(()=>typeof window.__FLY_DEBUG__),'undefined');
+  await lossPage.getByRole('button',{name:'开始起飞'}).tap();await lossPage.getByRole('button',{name:'收起提示'}).tap();
+  const lossStick=await lossPage.locator('#joystick').boundingBox(),lossCdp=await lossContext.newCDPSession(lossPage);
+  const firstLength=Math.hypot(.2,1),secondLength=Math.hypot(1,.5),center={x:lossStick.x+lossStick.width/2,y:lossStick.y+lossStick.height/2};
+  await lossCdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:center.x-.2/firstLength*47,y:center.y+1/firstLength*47}]});await lossPage.clock.runFor(1230);
+  await lossCdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:center.x+1/secondLength*47,y:center.y+.5/secondLength*47}]});await lossPage.clock.runFor(1800);await lossCdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+  assert.ok(await lossPage.locator('#failure-dialog').isVisible());assert.equal(await lossPage.locator('#failure-heading').textContent(),'水箱空了。');
+  assert.equal(await lossPage.evaluate(()=>localStorage.getItem('karcher-flight-best-v1')),null);await lossPage.screenshot({path:'work/production-failure-mobile.png'});
+  await lossPage.getByRole('button',{name:'重新起飞',exact:true}).tap();await lossPage.clock.runFor(100);
+  assert.equal(await lossPage.locator('#water-value').textContent(),'100%');assert.equal(await lossPage.locator('#clean-value').textContent(),'0.0%');await lossContext.close();
   const tablet=await browser.newContext({viewport:{width:768,height:1024}}),tab=await tablet.newPage();tab.on('pageerror',e=>errors.push(e.message));tab.on('requestfailed',r=>failures.push(r.url()));await tab.goto(url,{waitUntil:'networkidle'});assert.equal(await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);await tab.getByRole('button',{name:'开始起飞'}).click();assert.ok(await tab.getByRole('button',{name:'暂停游戏'}).isVisible());
   assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);
-  const report={verifiedAt:new Date().toISOString(),url,http:response.status,anonymous:true,assetsMatchLocalBuild:true,assets:checked,productAssetDecoded:true,secretAchievement:{realMouseUnlock:true,survivesReload:true},desktop:{height,clean,water,pause:true,rescue:true,restart:true},mobile:{width:390,height:844,flightHeight:mobileHeight,touch:true,noOverflow:true},tablet:{width:768,height:1024,start:true,noOverflow:true},productionDebugInterface:false,pageErrors:errors,failedRequests:failures};
+  const report={verifiedAt:new Date().toISOString(),url,http:response.status,anonymous:true,assetsMatchLocalBuild:true,assets:checked,productAssetDecoded:true,secretAchievement:{realMouseUnlock:true,survivesReload:true},failure:{emptyAcLanding:true,touchRetry:true,noBestScoreOnFailure:true,controlledBrowserClock:true},desktop:{height,clean,water,pause:true,rescue:true,restart:true},mobile:{width:390,height:844,flightHeight:mobileHeight,touch:true,noOverflow:true},tablet:{width:768,height:1024,start:true,noOverflow:true},productionDebugInterface:false,pageErrors:errors,failedRequests:failures};
   await writeFile('work/production-verification.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
 }finally{await browser.close();}

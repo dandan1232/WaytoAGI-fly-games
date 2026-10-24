@@ -28,7 +28,7 @@ export interface DirtCell extends Rect { amount: number }
 export interface Resident extends ResidentDef { unlocked: boolean; cleanPct: number }
 export interface Mud { x: number; y: number; r: number; hp: number }
 export interface GameEvent {
-  type: 'resident' | 'rescue' | 'checkpoint' | 'win' | 'mud' | 'achievement';
+  type: 'resident' | 'rescue' | 'checkpoint' | 'win' | 'mud' | 'achievement' | 'fail';
   id?: string;
   message?: string;
 }
@@ -43,7 +43,7 @@ export interface GameState {
   highest: number;
   checkpoint: { x: number; y: number; platformId: string };
   rescues: number;
-  status: 'playing' | 'won';
+  status: 'playing' | 'won' | 'lost';
   spraying: boolean;
   aim: { x: number; y: number };
   beamEnd: { x: number; y: number };
@@ -211,6 +211,7 @@ function landedOn(state: GameState, platform: Platform, dt: number, events: Game
 /** Rescue preserves all cleaning, discoveries and time; the highest checkpoint never moves down. */
 export function rescue(state: GameState): GameEvent {
   if (state.status === 'won') return { type: 'rescue', message: '已经登顶，无需救援。' };
+  if (state.status === 'lost') return { type: 'rescue', message: '本次飞行已结束，请重新起飞。' };
   const p = state.player;
   p.x = state.checkpoint.x;
   p.y = state.checkpoint.y;
@@ -271,10 +272,20 @@ export function stepGame(state: GameState, input: Input, delta: number): GameEve
     p.grounded = false;
     for (const box of obstacles) {
       if (!overlaps(p, box)) continue;
-      if (p.vy > 0) { p.y = box.y - p.h / 2; p.grounded = true; }
+      if (p.vy > 0) {
+        p.y = box.y - p.h / 2; p.grounded = true;
+        if (p.water <= EPS) {
+          p.water = 0; p.vx = 0; p.vy = 0;
+          state.spraying = false; state.refilling = false; state.status = 'lost';
+          state.highest = Math.max(state.highest, START_Y - p.y);
+          events.push({ type: 'fail', id: box.id, message: '水箱空了，落在空调外机上，飞行结束。' });
+          break;
+        }
+      }
       else if (p.vy < 0) p.y = box.y + box.h + p.h / 2;
       p.vy = 0;
     }
+    if (state.status !== 'playing') break;
     for (const platform of platforms) {
       const feet = p.y + p.h / 2;
       const crossesTop = oldFeet <= platform.y + 0.5 && feet >= platform.y && p.vy >= 0;
