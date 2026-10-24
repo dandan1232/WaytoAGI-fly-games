@@ -1,5 +1,7 @@
 # 我靠洗地飞起来了
 
+**[直接开玩 →](https://waytoagi-fly-games.vercel.app)**
+
 水枪反冲力跑酷 × 局部清洁 × 摩天楼居民故事。以卡赫创意 brief 为灵感的原创网页小游戏，幻想机制不代表真实产品性能。
 
 ## 文档
@@ -29,6 +31,7 @@ npm test
 npm run check
 npm run build
 npm run test:e2e
+npm run test:production
 ```
 
 浏览器验收使用电脑已安装的 Google Chrome；`playwright.config.ts` 会启动本地开发服务器。游戏运行不依赖 CDN、外部字体、模型服务、账号或后端。音效默认为关闭，个人最佳仅保存在当前浏览器。
@@ -37,5 +40,6 @@ npm run test:e2e
 
 - [验证记录](docs/verification.md)
 - [Vercel 部署](docs/deployment.md)
+- [KHB AIR 素材来源与生成提示](docs/visual-assets.md)
 
 当前版本为一栋完整可通关楼宇，含 7 个补水点、6 个空调障碍、6 个泥团、4 位住户和登顶画作。首轮游玩时间取决于操作熟练度与探索程度；自动控制路线的测试耗时不代表普通玩家通关时间。

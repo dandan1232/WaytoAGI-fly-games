@@ -23,4 +23,13 @@ CLI 的会话配置存放在忽略目录 `work/vercel-cli`，不在命令参数�
 
 ## 线上记录
 
-生产部署 ID、URL、源提交和匿名验收证据将在首次部署完成后补充。
+- 直接游玩：<https://waytoagi-fly-games.vercel.app>。
+- 当前游戏版本源提交：`574761308e945748c6de0fe28dd7fa38b423aa66`（KHB AIR 参考图还原版）。
+- 对应部署：`dpl_EVdKT1S7eDcjP5JM4MCBaBxeZFgB`，状态 `READY`，GitHub main 自动构建。
+- 不变部署地址：<https://waytoagi-fly-games-ehhupwxt7-dandan1232s-projects.vercel.app>。
+- 2026-10-25 00:00（Asia/Shanghai）匿名生产验证通过：HTTP 200；JS、CSS、PNG 三项资产与本地构建 SHA-256 一致；桌面、模拟手机触摸和平板开局通过；无脚本错误或失败请求。生产包无开发观测接口。
+- 验收脚本：`npm run test:production`。完整报告输出到忽略目录 `work/production-verification.json`，截图同目录保存。
+
+首次版本部署为 `dpl_B1zPsjG2EmeMeU5XtKaGmAD4SFXB`，源提交 `4883ab6e920edd498e0f3c6bc177a40442d55529`。后续文档/验收脚本提交也会触发自动部署；它们不改变上述游戏资源内容。
+
+验证环境的 Node 直接出网超时，而系统浏览器可正常访问；本机为验证进程临时使用已有系统代理并开启 Node 的 `--use-env-proxy`。这属于本机联网设置，不是网站运行时依赖，也没有把代理配置或认证信息写入项目。
