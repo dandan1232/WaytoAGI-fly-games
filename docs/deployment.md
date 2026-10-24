@@ -39,3 +39,9 @@ CLI 的会话配置存放在忽略目录 `work/vercel-cli`，不在命令参数�
 2026-10-25 00:23（Asia/Shanghai）生产验收通过。游戏版本源提交 `33b92662dbbfd8a7dcd9d631c5a2655b75953041`，部署 `dpl_6srDgQ6BVzZYM1RzY4fj7ZLFhKgE` 状态 READY；不变部署地址 <https://waytoagi-fly-games-kku1y9hz6-dandan1232s-projects.vercel.app>。主域名保持不变。
 
 匿名 Chrome 使用普通鼠标喷水解锁「原来你在摸鱼」，刷新后收藏仍保留。线上 JS、CSS、PNG 均与本地构建 SHA-256 一致；桌面、触摸与平板基本流程通过，无页面错误或失败请求。后续仅追加本次发布记录的提交不改变已验收的游戏资源。
+
+## R3 界面更新
+
+2026-10-25 01:06（Asia/Shanghai）生产验收通过。游戏版本源提交 `6917ed9d117a8646d0293adf53464c9be9ed6265`，部署 `dpl_4gbign8x13dTybfQXufrZSf8xfFs` READY；不变部署地址 <https://waytoagi-fly-games-38t41frj3-dandan1232s-projects.vercel.app>，主域名保持不变。
+
+匿名生产检查确认：新首屏与产品素材已加载；线上 JS、CSS、PNG 与本地构建哈希一致；桌面喷水、暂停、救援、重玩、真实鼠标彩蛋解锁及刷新收藏通过；390px 触摸和平板开局通过。无开发观测接口、无页面脚本错误、无失败请求。后续仅发布记录提交不改变游戏资源。
