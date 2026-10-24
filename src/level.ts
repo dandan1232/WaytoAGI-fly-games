@@ -25,14 +25,14 @@ export const platforms: Platform[] = [
   { id: 'roof', x: 175, y: 160, w: 550, h: 30, kind: 'roof' },
 ];
 
-/** These solid AC boxes require steering, unlike the one-way service ledges. */
+/** Each AC blocks the previous refill's direct launch column, encouraging a diagonal route. */
 export const obstacles: Obstacle[] = [
-  { id: 'ac-1', x: 355, y: 2570, w: 92, h: 54 },
-  { id: 'ac-2', x: 480, y: 2145, w: 92, h: 54 },
-  { id: 'ac-3', x: 350, y: 1730, w: 92, h: 54 },
-  { id: 'ac-4', x: 480, y: 1310, w: 92, h: 54 },
-  { id: 'ac-5', x: 350, y: 890, w: 92, h: 54 },
-  { id: 'ac-6', x: 490, y: 470, w: 92, h: 54 },
+  { id: 'ac-1', x: 270, y: 2570, w: 92, h: 54 },
+  { id: 'ac-2', x: 540, y: 2145, w: 92, h: 54 },
+  { id: 'ac-3', x: 270, y: 1730, w: 92, h: 54 },
+  { id: 'ac-4', x: 540, y: 1310, w: 92, h: 54 },
+  { id: 'ac-5', x: 270, y: 890, w: 92, h: 54 },
+  { id: 'ac-6', x: 540, y: 470, w: 92, h: 54 },
 ];
 
 export const residentDefs: ResidentDef[] = [

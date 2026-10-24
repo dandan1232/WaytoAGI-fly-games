@@ -12,7 +12,8 @@ export const PHYSICS = {
   maxHorizontalSpeed: 340,
   maxUpSpeed: 430,
   maxDownSpeed: 480,
-  waterPerSecond: 22,
+  // A tank can clear one 420px ascent with steering margin, but not skip two stops.
+  waterPerSecond: 54,
   refillPerSecond: 55,
   cleanPerSecond: 2.7,
   beamHalfWidth: 29,

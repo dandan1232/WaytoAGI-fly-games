@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { loadBest, saveBest } from '../src/storage.ts';
+let value:string|null=null;
+const store={getItem:()=>value,setItem:(_key:string,next:string)=>{value=next;}};
+Object.defineProperty(globalThis,'localStorage',{value:store,configurable:true});
+const base={stars:1,clean:20,residents:0,elapsed:90,rescues:1,height:133};
+test('invalid or tampered saved data is ignored',()=>{for(const raw of ['broken','null','{}','{"stars":999}']){value=raw;assert.equal(loadBest(),null);}value=JSON.stringify({...base,clean:101});assert.equal(loadBest(),null);});
+test('best record ranks stars, cleaning, residents, then lower time',()=>{value=null;assert.equal(saveBest(base).saved,true);assert.deepEqual(loadBest(),base);saveBest({...base,elapsed:50});assert.equal(loadBest()?.elapsed,50);saveBest({...base,elapsed:100});assert.equal(loadBest()?.elapsed,50);saveBest({...base,stars:2,elapsed:150});assert.equal(loadBest()?.stars,2);saveBest({...base,stars:2,clean:30,elapsed:200});assert.equal(loadBest()?.clean,30);});
+test('unavailable storage never blocks completing a run',()=>{Object.defineProperty(globalThis,'localStorage',{get(){throw new Error('blocked');},configurable:true});assert.equal(loadBest(),null);assert.deepEqual(saveBest(base),{best:base,saved:false});Object.defineProperty(globalThis,'localStorage',{value:store,configurable:true});});

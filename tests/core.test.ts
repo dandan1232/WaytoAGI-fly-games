@@ -29,7 +29,7 @@ test('downward spray lifts the character; leftward spray moves them right', () =
   run(s, { dx: 0, dy: 1, spraying: true }, 0.4);
   assert.ok(s.player.y < initialY - 35);
   assert.ok(s.player.vy < 0);
-  assert.ok(s.player.water < 100 && s.player.water > 89);
+  assert.ok(Math.abs(s.player.water - (100 - 0.4 * PHYSICS.waterPerSecond)) < 0.001);
   const initialX = s.player.x;
   run(s, { dx: -1, dy: 0, spraying: true }, 0.2);
   assert.ok(s.player.x > initialX + 10);
@@ -211,9 +211,41 @@ test('fixed substeps behave consistently at 30, 60, and 120 render fps', () => {
   assert.equal(s.elapsed, before);
 });
 
+test('one full tank clears one ascent with margin but cannot skip two refill gaps', () => {
+  const state = createGame();
+  // Isolate the fuel envelope in the unobstructed side lane.
+  state.player.x = 80;
+  const startY = state.player.y;
+  let minY = startY;
+  for (let i = 0; i < 120 * 5; i++) {
+    stepGame(state, { dx: 0, dy: 1, spraying: true }, FIXED_DT);
+    minY = Math.min(minY, state.player.y);
+    if (state.player.water < 0.001 && state.player.vy >= 0) break;
+  }
+  const ascent = startY - minY;
+  const oneGap = platforms[0].y - platforms[1].y;
+  assert.ok(ascent > oneGap + 160, `Need flight margin above one gap; got ${ascent}`);
+  assert.ok(ascent < oneGap * 2 - 20, `Tank skips two gaps; got ${ascent}`);
+  console.log(`Fuel envelope: ${ascent.toFixed(1)} px maximum rise for a ${oneGap} px stage gap.`);
+});
+
+test('holding straight down and automatically waiting for refill cannot complete the game', () => {
+  const state = createGame();
+  let waitingForRefill = false;
+  for (let i = 0; i < 120 * 90; i++) {
+    if (state.player.water < 0.01) waitingForRefill = true;
+    if (waitingForRefill && state.player.water > 99.9) waitingForRefill = false;
+    stepGame(state, { dx: 0, dy: 1, spraying: !waitingForRefill }, FIXED_DT);
+  }
+  assert.equal(state.status, 'playing');
+  assert.equal(state.checkpoint.platformId, 'start');
+  assert.ok(state.highest < platforms[0].y - platforms[1].y);
+});
+
 test('all refill stops and the roof are reachable using only normal inputs', () => {
   const state = createGame();
   const visited = [state.checkpoint.platformId];
+  const arrivalWater: number[] = [];
   let duty = 0;
   for (const destination of platforms.slice(1)) {
     const tx = destination.x + destination.w / 2;
@@ -236,6 +268,7 @@ test('all refill stops and the roof are reachable using only normal inputs', () 
       const len = power || 1;
       stepGame(state, { dx: -ax / len, dy: -ay / len, spraying }, 1 / 60);
       if ((state.player.grounded && Math.abs(state.player.y - ty) < 1) || state.status === 'won') {
+        arrivalWater.push(Math.round(state.player.water));
         run(state, idle, 2.1);
         visited.push(destination.id);
         landed = true;
@@ -248,5 +281,6 @@ test('all refill stops and the roof are reachable using only normal inputs', () 
   assert.deepEqual(visited, platforms.map(p => p.id));
   assert.equal(state.status, 'won');
   assert.ok(state.highest > 2600);
-  console.log(`Route proof: ${visited.join(' → ')}; ${state.elapsed.toFixed(1)} s, ${state.rescues} rescues, ${state.cleanPct.toFixed(1)}% cleaned.`);
+  assert.ok(arrivalWater.every(water => water >= 20), `Expected a human steering reserve; got ${arrivalWater}`);
+  console.log(`Route proof: ${visited.join(' → ')}; ${state.elapsed.toFixed(1)} s, ${state.rescues} rescues, ${state.cleanPct.toFixed(1)}% cleaned; water left on landing: ${arrivalWater.join(', ')}%.`);
 });
